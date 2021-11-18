@@ -15,11 +15,13 @@ namespace Project5
         public const string dbPassword = "dfcg22r";
         public const string dbName = "project";
 
-        //  Declare users list
+        //  Declare lists
         public List<UserAccount> Users = new List<UserAccount>();
 
         //  Declare MySQL instance for connections
-        MySqlConnection dbConnection;
+        public MySqlConnection dbConnection;
+
+        //ManagerForm managerForm = new ManagerForm();
 
         public void SetDBConnection(string serverAddress, string username, string passwd, string dbName)
         {
@@ -27,6 +29,16 @@ namespace Project5
             string connectionString = "Host=" + serverAddress + "; Username=" + username + "; Password=" + passwd + "; Database=" + dbName + ";";
 
             dbConnection = new MySqlConnection(connectionString);
+        }
+
+        public MySqlConnection CreateDBConnection(string serverAddress, string username, string passwd, string dbName)
+        {
+            //  String to connect to database
+            string connection = "Host=" + serverAddress + "; Username=" + username + "; Password=" + passwd + "; Database=" + dbName + ";";
+
+            dbConnection = new MySqlConnection(connection);
+
+            return dbConnection;
         }
 
         public List<UserAccount> ReadManagersDB()
@@ -154,5 +166,7 @@ namespace Project5
 
             return queryResult;
         }
+
+        
     }
 }

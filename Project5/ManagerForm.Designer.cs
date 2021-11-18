@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.resetMovieSearchButton = new System.Windows.Forms.Button();
             this.movieSearchLabel = new System.Windows.Forms.Label();
             this.movieSearchTextBox = new System.Windows.Forms.TextBox();
-            this.genreComboBox = new System.Windows.Forms.ComboBox();
             this.addMovieGenreComboBox = new System.Windows.Forms.ComboBox();
             this.idTextBox = new System.Windows.Forms.TextBox();
             this.movieIDLabel = new System.Windows.Forms.Label();
@@ -71,7 +71,6 @@
             this.addMovieButton = new System.Windows.Forms.Button();
             this.exitButton = new System.Windows.Forms.Button();
             this.moviePictureBox = new System.Windows.Forms.PictureBox();
-            this.moviesListView = new System.Windows.Forms.ListView();
             this.addScreeningRoomLabel = new System.Windows.Forms.Label();
             this.deleteScreeningRoomButton = new System.Windows.Forms.Button();
             this.addScreeningRoomButton = new System.Windows.Forms.Button();
@@ -83,12 +82,6 @@
             this.screeningRoomCodeTextBox = new System.Windows.Forms.TextBox();
             this.screeningRoomInfoLabel = new System.Windows.Forms.Label();
             this.screeningRoomsListBox = new System.Windows.Forms.ListBox();
-            this.addDescriptionLabel = new System.Windows.Forms.Label();
-            this.addCapacityLabel = new System.Windows.Forms.Label();
-            this.addCodeLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.addScreeningRoomCapacityTextBox = new System.Windows.Forms.TextBox();
-            this.addScreeningRoomCodeTextBox = new System.Windows.Forms.TextBox();
             this.saveScreeningRoomButton = new System.Windows.Forms.Button();
             this.modifyScreeningRoomButton = new System.Windows.Forms.Button();
             this.showtimeCostLabel = new System.Windows.Forms.Label();
@@ -99,7 +92,6 @@
             this.showtimeIDLabel = new System.Windows.Forms.Label();
             this.showtimeDateTextBox = new System.Windows.Forms.TextBox();
             this.showtimeIDTextBox = new System.Windows.Forms.TextBox();
-            this.showtimeMovieTextBox = new System.Windows.Forms.TextBox();
             this.showtimeInfoLabel = new System.Windows.Forms.Label();
             this.showtimesListBox = new System.Windows.Forms.ListBox();
             this.showtimeLabel = new System.Windows.Forms.Label();
@@ -116,12 +108,23 @@
             this.addShowtimeIDLabel = new System.Windows.Forms.Label();
             this.addShowtimeDateTextBox = new System.Windows.Forms.TextBox();
             this.addShowtimeIDTextBox = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
+            this.deleteShowtimeButton = new System.Windows.Forms.Button();
             this.addShowtimeButton = new System.Windows.Forms.Button();
             this.ticketPortalButton = new System.Windows.Forms.Button();
             this.clientPortalButton = new System.Windows.Forms.Button();
             this.showtimeRoomComboBox = new System.Windows.Forms.ComboBox();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.addShowtimeRoomComboBox = new System.Windows.Forms.ComboBox();
+            this.genreListBox = new System.Windows.Forms.ListBox();
+            this.editGenreButton = new System.Windows.Forms.Button();
+            this.movieImageList = new System.Windows.Forms.ImageList(this.components);
+            this.moviesListView = new System.Windows.Forms.ListView();
+            this.addScreeningRoomDescriptionLabel = new System.Windows.Forms.Label();
+            this.addScreeningRoomCapacityLabel = new System.Windows.Forms.Label();
+            this.addScreeningRoomCodeLabel = new System.Windows.Forms.Label();
+            this.addScreeningRoomDescriptionTextBox = new System.Windows.Forms.TextBox();
+            this.addScreeningRoomCapacityTextBox = new System.Windows.Forms.TextBox();
+            this.addScreeningRoomCodeTextBox = new System.Windows.Forms.TextBox();
+            this.showtimeMovieComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.moviePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -153,17 +156,9 @@
             this.movieSearchTextBox.Size = new System.Drawing.Size(197, 22);
             this.movieSearchTextBox.TabIndex = 264;
             // 
-            // genreComboBox
-            // 
-            this.genreComboBox.Enabled = false;
-            this.genreComboBox.FormattingEnabled = true;
-            this.genreComboBox.Location = new System.Drawing.Point(95, 498);
-            this.genreComboBox.Name = "genreComboBox";
-            this.genreComboBox.Size = new System.Drawing.Size(161, 24);
-            this.genreComboBox.TabIndex = 263;
-            // 
             // addMovieGenreComboBox
             // 
+            this.addMovieGenreComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.addMovieGenreComboBox.FormattingEnabled = true;
             this.addMovieGenreComboBox.Location = new System.Drawing.Point(401, 498);
             this.addMovieGenreComboBox.Name = "addMovieGenreComboBox";
@@ -325,7 +320,7 @@
             // 
             this.movieImagePathButton.Enabled = false;
             this.movieImagePathButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.movieImagePathButton.Location = new System.Drawing.Point(262, 564);
+            this.movieImagePathButton.Location = new System.Drawing.Point(262, 601);
             this.movieImagePathButton.Name = "movieImagePathButton";
             this.movieImagePathButton.Size = new System.Drawing.Size(48, 35);
             this.movieImagePathButton.TabIndex = 223;
@@ -336,7 +331,7 @@
             // saveMovieButton
             // 
             this.saveMovieButton.Enabled = false;
-            this.saveMovieButton.Location = new System.Drawing.Point(140, 649);
+            this.saveMovieButton.Location = new System.Drawing.Point(140, 686);
             this.saveMovieButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.saveMovieButton.Name = "saveMovieButton";
             this.saveMovieButton.Size = new System.Drawing.Size(116, 44);
@@ -379,7 +374,7 @@
             // lengthTextBox
             // 
             this.lengthTextBox.Enabled = false;
-            this.lengthTextBox.Location = new System.Drawing.Point(95, 536);
+            this.lengthTextBox.Location = new System.Drawing.Point(95, 573);
             this.lengthTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lengthTextBox.Name = "lengthTextBox";
             this.lengthTextBox.Size = new System.Drawing.Size(161, 22);
@@ -388,7 +383,7 @@
             // imagePathTextBox
             // 
             this.imagePathTextBox.Enabled = false;
-            this.imagePathTextBox.Location = new System.Drawing.Point(95, 575);
+            this.imagePathTextBox.Location = new System.Drawing.Point(95, 612);
             this.imagePathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.imagePathTextBox.Name = "imagePathTextBox";
             this.imagePathTextBox.Size = new System.Drawing.Size(161, 22);
@@ -397,7 +392,7 @@
             // ratingTextBox
             // 
             this.ratingTextBox.Enabled = false;
-            this.ratingTextBox.Location = new System.Drawing.Point(95, 612);
+            this.ratingTextBox.Location = new System.Drawing.Point(95, 649);
             this.ratingTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ratingTextBox.Name = "ratingTextBox";
             this.ratingTextBox.Size = new System.Drawing.Size(161, 22);
@@ -406,7 +401,7 @@
             // movieRatingLabel
             // 
             this.movieRatingLabel.AutoSize = true;
-            this.movieRatingLabel.Location = new System.Drawing.Point(40, 615);
+            this.movieRatingLabel.Location = new System.Drawing.Point(40, 652);
             this.movieRatingLabel.Name = "movieRatingLabel";
             this.movieRatingLabel.Size = new System.Drawing.Size(53, 17);
             this.movieRatingLabel.TabIndex = 184;
@@ -415,7 +410,7 @@
             // movieImagePathLabel
             // 
             this.movieImagePathLabel.AutoSize = true;
-            this.movieImagePathLabel.Location = new System.Drawing.Point(10, 578);
+            this.movieImagePathLabel.Location = new System.Drawing.Point(10, 615);
             this.movieImagePathLabel.Name = "movieImagePathLabel";
             this.movieImagePathLabel.Size = new System.Drawing.Size(83, 17);
             this.movieImagePathLabel.TabIndex = 183;
@@ -424,7 +419,7 @@
             // movieLengthLabel
             // 
             this.movieLengthLabel.AutoSize = true;
-            this.movieLengthLabel.Location = new System.Drawing.Point(2, 539);
+            this.movieLengthLabel.Location = new System.Drawing.Point(2, 576);
             this.movieLengthLabel.Name = "movieLengthLabel";
             this.movieLengthLabel.Size = new System.Drawing.Size(92, 17);
             this.movieLengthLabel.TabIndex = 182;
@@ -487,7 +482,7 @@
             // 
             // modifyMovieButton
             // 
-            this.modifyMovieButton.Location = new System.Drawing.Point(16, 649);
+            this.modifyMovieButton.Location = new System.Drawing.Point(16, 686);
             this.modifyMovieButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.modifyMovieButton.Name = "modifyMovieButton";
             this.modifyMovieButton.Size = new System.Drawing.Size(118, 44);
@@ -522,21 +517,9 @@
             this.moviePictureBox.Location = new System.Drawing.Point(458, 47);
             this.moviePictureBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.moviePictureBox.Name = "moviePictureBox";
-            this.moviePictureBox.Size = new System.Drawing.Size(339, 313);
+            this.moviePictureBox.Size = new System.Drawing.Size(339, 314);
             this.moviePictureBox.TabIndex = 169;
             this.moviePictureBox.TabStop = false;
-            // 
-            // moviesListView
-            // 
-            this.moviesListView.FullRowSelect = true;
-            this.moviesListView.HideSelection = false;
-            this.moviesListView.Location = new System.Drawing.Point(11, 47);
-            this.moviesListView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.moviesListView.MultiSelect = false;
-            this.moviesListView.Name = "moviesListView";
-            this.moviesListView.Size = new System.Drawing.Size(441, 313);
-            this.moviesListView.TabIndex = 168;
-            this.moviesListView.UseCompatibleStateImageBehavior = false;
             // 
             // addScreeningRoomLabel
             // 
@@ -550,7 +533,7 @@
             // 
             // deleteScreeningRoomButton
             // 
-            this.deleteScreeningRoomButton.Location = new System.Drawing.Point(985, 207);
+            this.deleteScreeningRoomButton.Location = new System.Drawing.Point(985, 214);
             this.deleteScreeningRoomButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.deleteScreeningRoomButton.Name = "deleteScreeningRoomButton";
             this.deleteScreeningRoomButton.Size = new System.Drawing.Size(155, 44);
@@ -560,10 +543,10 @@
             // 
             // addScreeningRoomButton
             // 
-            this.addScreeningRoomButton.Location = new System.Drawing.Point(1165, 207);
+            this.addScreeningRoomButton.Location = new System.Drawing.Point(1164, 214);
             this.addScreeningRoomButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addScreeningRoomButton.Name = "addScreeningRoomButton";
-            this.addScreeningRoomButton.Size = new System.Drawing.Size(155, 44);
+            this.addScreeningRoomButton.Size = new System.Drawing.Size(156, 44);
             this.addScreeningRoomButton.TabIndex = 267;
             this.addScreeningRoomButton.Text = "Add Screening Room";
             this.addScreeningRoomButton.UseVisualStyleBackColor = true;
@@ -571,17 +554,17 @@
             // descriptionLabel
             // 
             this.descriptionLabel.AutoSize = true;
-            this.descriptionLabel.Location = new System.Drawing.Point(798, 159);
+            this.descriptionLabel.Location = new System.Drawing.Point(801, 161);
             this.descriptionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.descriptionLabel.Name = "descriptionLabel";
-            this.descriptionLabel.Size = new System.Drawing.Size(79, 17);
+            this.descriptionLabel.Size = new System.Drawing.Size(83, 17);
             this.descriptionLabel.TabIndex = 290;
-            this.descriptionLabel.Text = "Description";
+            this.descriptionLabel.Text = "Description:";
             // 
             // capacityLabel
             // 
             this.capacityLabel.AutoSize = true;
-            this.capacityLabel.Location = new System.Drawing.Point(798, 115);
+            this.capacityLabel.Location = new System.Drawing.Point(801, 115);
             this.capacityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.capacityLabel.Name = "capacityLabel";
             this.capacityLabel.Size = new System.Drawing.Size(66, 17);
@@ -591,7 +574,7 @@
             // codeLabel
             // 
             this.codeLabel.AutoSize = true;
-            this.codeLabel.Location = new System.Drawing.Point(798, 72);
+            this.codeLabel.Location = new System.Drawing.Point(801, 70);
             this.codeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.codeLabel.Name = "codeLabel";
             this.codeLabel.Size = new System.Drawing.Size(45, 17);
@@ -601,7 +584,7 @@
             // screeningRoomDescriptionTextBox
             // 
             this.screeningRoomDescriptionTextBox.Enabled = false;
-            this.screeningRoomDescriptionTextBox.Location = new System.Drawing.Point(802, 179);
+            this.screeningRoomDescriptionTextBox.Location = new System.Drawing.Point(802, 183);
             this.screeningRoomDescriptionTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.screeningRoomDescriptionTextBox.Name = "screeningRoomDescriptionTextBox";
             this.screeningRoomDescriptionTextBox.Size = new System.Drawing.Size(155, 22);
@@ -610,7 +593,7 @@
             // screeningRoomCapacityTextBox
             // 
             this.screeningRoomCapacityTextBox.Enabled = false;
-            this.screeningRoomCapacityTextBox.Location = new System.Drawing.Point(802, 135);
+            this.screeningRoomCapacityTextBox.Location = new System.Drawing.Point(802, 137);
             this.screeningRoomCapacityTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.screeningRoomCapacityTextBox.Name = "screeningRoomCapacityTextBox";
             this.screeningRoomCapacityTextBox.Size = new System.Drawing.Size(155, 22);
@@ -619,7 +602,7 @@
             // screeningRoomCodeTextBox
             // 
             this.screeningRoomCodeTextBox.Enabled = false;
-            this.screeningRoomCodeTextBox.Location = new System.Drawing.Point(802, 91);
+            this.screeningRoomCodeTextBox.Location = new System.Drawing.Point(802, 90);
             this.screeningRoomCodeTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.screeningRoomCodeTextBox.Name = "screeningRoomCodeTextBox";
             this.screeningRoomCodeTextBox.Size = new System.Drawing.Size(155, 22);
@@ -629,7 +612,7 @@
             // 
             this.screeningRoomInfoLabel.AutoSize = true;
             this.screeningRoomInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.screeningRoomInfoLabel.Location = new System.Drawing.Point(797, 47);
+            this.screeningRoomInfoLabel.Location = new System.Drawing.Point(801, 47);
             this.screeningRoomInfoLabel.Name = "screeningRoomInfoLabel";
             this.screeningRoomInfoLabel.Size = new System.Drawing.Size(94, 20);
             this.screeningRoomInfoLabel.TabIndex = 291;
@@ -643,65 +626,12 @@
             this.screeningRoomsListBox.Name = "screeningRoomsListBox";
             this.screeningRoomsListBox.Size = new System.Drawing.Size(194, 148);
             this.screeningRoomsListBox.TabIndex = 292;
-            // 
-            // addDescriptionLabel
-            // 
-            this.addDescriptionLabel.AutoSize = true;
-            this.addDescriptionLabel.Location = new System.Drawing.Point(1161, 159);
-            this.addDescriptionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.addDescriptionLabel.Name = "addDescriptionLabel";
-            this.addDescriptionLabel.Size = new System.Drawing.Size(83, 17);
-            this.addDescriptionLabel.TabIndex = 298;
-            this.addDescriptionLabel.Text = "Description:";
-            // 
-            // addCapacityLabel
-            // 
-            this.addCapacityLabel.AutoSize = true;
-            this.addCapacityLabel.Location = new System.Drawing.Point(1161, 115);
-            this.addCapacityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.addCapacityLabel.Name = "addCapacityLabel";
-            this.addCapacityLabel.Size = new System.Drawing.Size(66, 17);
-            this.addCapacityLabel.TabIndex = 297;
-            this.addCapacityLabel.Text = "Capacity:";
-            // 
-            // addCodeLabel
-            // 
-            this.addCodeLabel.AutoSize = true;
-            this.addCodeLabel.Location = new System.Drawing.Point(1161, 72);
-            this.addCodeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.addCodeLabel.Name = "addCodeLabel";
-            this.addCodeLabel.Size = new System.Drawing.Size(45, 17);
-            this.addCodeLabel.TabIndex = 296;
-            this.addCodeLabel.Text = "Code:";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(1165, 179);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(155, 22);
-            this.textBox1.TabIndex = 295;
-            // 
-            // addScreeningRoomCapacityTextBox
-            // 
-            this.addScreeningRoomCapacityTextBox.Location = new System.Drawing.Point(1165, 135);
-            this.addScreeningRoomCapacityTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.addScreeningRoomCapacityTextBox.Name = "addScreeningRoomCapacityTextBox";
-            this.addScreeningRoomCapacityTextBox.Size = new System.Drawing.Size(155, 22);
-            this.addScreeningRoomCapacityTextBox.TabIndex = 294;
-            // 
-            // addScreeningRoomCodeTextBox
-            // 
-            this.addScreeningRoomCodeTextBox.Location = new System.Drawing.Point(1165, 91);
-            this.addScreeningRoomCodeTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.addScreeningRoomCodeTextBox.Name = "addScreeningRoomCodeTextBox";
-            this.addScreeningRoomCodeTextBox.Size = new System.Drawing.Size(155, 22);
-            this.addScreeningRoomCodeTextBox.TabIndex = 293;
+            this.screeningRoomsListBox.SelectedIndexChanged += new System.EventHandler(this.ScreeningRoomsListBox_SelectedIndexChanged);
             // 
             // saveScreeningRoomButton
             // 
             this.saveScreeningRoomButton.Enabled = false;
-            this.saveScreeningRoomButton.Location = new System.Drawing.Point(801, 255);
+            this.saveScreeningRoomButton.Location = new System.Drawing.Point(801, 262);
             this.saveScreeningRoomButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.saveScreeningRoomButton.Name = "saveScreeningRoomButton";
             this.saveScreeningRoomButton.Size = new System.Drawing.Size(156, 44);
@@ -711,12 +641,12 @@
             // 
             // modifyScreeningRoomButton
             // 
-            this.modifyScreeningRoomButton.Location = new System.Drawing.Point(801, 207);
+            this.modifyScreeningRoomButton.Location = new System.Drawing.Point(801, 214);
             this.modifyScreeningRoomButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.modifyScreeningRoomButton.Name = "modifyScreeningRoomButton";
             this.modifyScreeningRoomButton.Size = new System.Drawing.Size(156, 44);
             this.modifyScreeningRoomButton.TabIndex = 299;
-            this.modifyScreeningRoomButton.Text = "Modify movie";
+            this.modifyScreeningRoomButton.Text = "Modify Screening Room";
             this.modifyScreeningRoomButton.UseVisualStyleBackColor = true;
             // 
             // showtimeCostLabel
@@ -741,10 +671,11 @@
             // 
             // showtimeCostTextBox
             // 
+            this.showtimeCostTextBox.Enabled = false;
             this.showtimeCostTextBox.Location = new System.Drawing.Point(832, 458);
             this.showtimeCostTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.showtimeCostTextBox.Name = "showtimeCostTextBox";
-            this.showtimeCostTextBox.Size = new System.Drawing.Size(134, 22);
+            this.showtimeCostTextBox.Size = new System.Drawing.Size(174, 22);
             this.showtimeCostTextBox.TabIndex = 306;
             // 
             // showtimeMovieLabel
@@ -783,7 +714,7 @@
             this.showtimeDateTextBox.Location = new System.Drawing.Point(832, 368);
             this.showtimeDateTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.showtimeDateTextBox.Name = "showtimeDateTextBox";
-            this.showtimeDateTextBox.Size = new System.Drawing.Size(134, 22);
+            this.showtimeDateTextBox.Size = new System.Drawing.Size(174, 22);
             this.showtimeDateTextBox.TabIndex = 302;
             // 
             // showtimeIDTextBox
@@ -792,17 +723,8 @@
             this.showtimeIDTextBox.Location = new System.Drawing.Point(832, 338);
             this.showtimeIDTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.showtimeIDTextBox.Name = "showtimeIDTextBox";
-            this.showtimeIDTextBox.Size = new System.Drawing.Size(134, 22);
+            this.showtimeIDTextBox.Size = new System.Drawing.Size(174, 22);
             this.showtimeIDTextBox.TabIndex = 301;
-            // 
-            // showtimeMovieTextBox
-            // 
-            this.showtimeMovieTextBox.Enabled = false;
-            this.showtimeMovieTextBox.Location = new System.Drawing.Point(832, 398);
-            this.showtimeMovieTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.showtimeMovieTextBox.Name = "showtimeMovieTextBox";
-            this.showtimeMovieTextBox.Size = new System.Drawing.Size(134, 22);
-            this.showtimeMovieTextBox.TabIndex = 310;
             // 
             // showtimeInfoLabel
             // 
@@ -818,16 +740,17 @@
             // 
             this.showtimesListBox.FormattingEnabled = true;
             this.showtimesListBox.ItemHeight = 16;
-            this.showtimesListBox.Location = new System.Drawing.Point(973, 335);
+            this.showtimesListBox.Location = new System.Drawing.Point(1022, 335);
             this.showtimesListBox.Name = "showtimesListBox";
-            this.showtimesListBox.Size = new System.Drawing.Size(194, 148);
+            this.showtimesListBox.Size = new System.Drawing.Size(99, 148);
             this.showtimesListBox.TabIndex = 313;
+            this.showtimesListBox.SelectedIndexChanged += new System.EventHandler(this.ShowtimesListBox_SelectedIndexChanged);
             // 
             // showtimeLabel
             // 
             this.showtimeLabel.AutoSize = true;
             this.showtimeLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.showtimeLabel.Location = new System.Drawing.Point(980, 306);
+            this.showtimeLabel.Location = new System.Drawing.Point(998, 305);
             this.showtimeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.showtimeLabel.Name = "showtimeLabel";
             this.showtimeLabel.Size = new System.Drawing.Size(141, 29);
@@ -870,7 +793,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(1211, 317);
+            this.label1.Location = new System.Drawing.Point(1160, 317);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(47, 20);
             this.label1.TabIndex = 328;
@@ -878,16 +801,16 @@
             // 
             // addShowtimeMovieTextBox
             // 
-            this.addShowtimeMovieTextBox.Location = new System.Drawing.Point(1226, 401);
+            this.addShowtimeMovieTextBox.Location = new System.Drawing.Point(1175, 401);
             this.addShowtimeMovieTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.addShowtimeMovieTextBox.Name = "addShowtimeMovieTextBox";
-            this.addShowtimeMovieTextBox.Size = new System.Drawing.Size(134, 22);
+            this.addShowtimeMovieTextBox.Size = new System.Drawing.Size(174, 22);
             this.addShowtimeMovieTextBox.TabIndex = 326;
             // 
             // addShowtimeCostLabel
             // 
             this.addShowtimeCostLabel.AutoSize = true;
-            this.addShowtimeCostLabel.Location = new System.Drawing.Point(1184, 465);
+            this.addShowtimeCostLabel.Location = new System.Drawing.Point(1133, 465);
             this.addShowtimeCostLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.addShowtimeCostLabel.Name = "addShowtimeCostLabel";
             this.addShowtimeCostLabel.Size = new System.Drawing.Size(40, 17);
@@ -897,7 +820,7 @@
             // addShowtimeRoomLabel
             // 
             this.addShowtimeRoomLabel.AutoSize = true;
-            this.addShowtimeRoomLabel.Location = new System.Drawing.Point(1175, 434);
+            this.addShowtimeRoomLabel.Location = new System.Drawing.Point(1124, 434);
             this.addShowtimeRoomLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.addShowtimeRoomLabel.Name = "addShowtimeRoomLabel";
             this.addShowtimeRoomLabel.Size = new System.Drawing.Size(49, 17);
@@ -906,16 +829,16 @@
             // 
             // addShowtimeCostTextBox
             // 
-            this.addShowtimeCostTextBox.Location = new System.Drawing.Point(1226, 461);
+            this.addShowtimeCostTextBox.Location = new System.Drawing.Point(1175, 461);
             this.addShowtimeCostTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.addShowtimeCostTextBox.Name = "addShowtimeCostTextBox";
-            this.addShowtimeCostTextBox.Size = new System.Drawing.Size(134, 22);
+            this.addShowtimeCostTextBox.Size = new System.Drawing.Size(174, 22);
             this.addShowtimeCostTextBox.TabIndex = 323;
             // 
             // addShowtimeMovieLabel
             // 
             this.addShowtimeMovieLabel.AutoSize = true;
-            this.addShowtimeMovieLabel.Location = new System.Drawing.Point(1175, 404);
+            this.addShowtimeMovieLabel.Location = new System.Drawing.Point(1124, 404);
             this.addShowtimeMovieLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.addShowtimeMovieLabel.Name = "addShowtimeMovieLabel";
             this.addShowtimeMovieLabel.Size = new System.Drawing.Size(49, 17);
@@ -925,7 +848,7 @@
             // addShowtimeDateLabel
             // 
             this.addShowtimeDateLabel.AutoSize = true;
-            this.addShowtimeDateLabel.Location = new System.Drawing.Point(1182, 374);
+            this.addShowtimeDateLabel.Location = new System.Drawing.Point(1131, 374);
             this.addShowtimeDateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.addShowtimeDateLabel.Name = "addShowtimeDateLabel";
             this.addShowtimeDateLabel.Size = new System.Drawing.Size(42, 17);
@@ -935,7 +858,7 @@
             // addShowtimeIDLabel
             // 
             this.addShowtimeIDLabel.AutoSize = true;
-            this.addShowtimeIDLabel.Location = new System.Drawing.Point(1199, 344);
+            this.addShowtimeIDLabel.Location = new System.Drawing.Point(1148, 344);
             this.addShowtimeIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.addShowtimeIDLabel.Name = "addShowtimeIDLabel";
             this.addShowtimeIDLabel.Size = new System.Drawing.Size(25, 17);
@@ -944,29 +867,29 @@
             // 
             // addShowtimeDateTextBox
             // 
-            this.addShowtimeDateTextBox.Location = new System.Drawing.Point(1226, 371);
+            this.addShowtimeDateTextBox.Location = new System.Drawing.Point(1175, 371);
             this.addShowtimeDateTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.addShowtimeDateTextBox.Name = "addShowtimeDateTextBox";
-            this.addShowtimeDateTextBox.Size = new System.Drawing.Size(134, 22);
+            this.addShowtimeDateTextBox.Size = new System.Drawing.Size(174, 22);
             this.addShowtimeDateTextBox.TabIndex = 319;
             // 
             // addShowtimeIDTextBox
             // 
-            this.addShowtimeIDTextBox.Location = new System.Drawing.Point(1226, 341);
+            this.addShowtimeIDTextBox.Location = new System.Drawing.Point(1175, 341);
             this.addShowtimeIDTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.addShowtimeIDTextBox.Name = "addShowtimeIDTextBox";
-            this.addShowtimeIDTextBox.Size = new System.Drawing.Size(134, 22);
+            this.addShowtimeIDTextBox.Size = new System.Drawing.Size(174, 22);
             this.addShowtimeIDTextBox.TabIndex = 318;
             // 
-            // button1
+            // deleteShowtimeButton
             // 
-            this.button1.Location = new System.Drawing.Point(1003, 487);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(155, 44);
-            this.button1.TabIndex = 330;
-            this.button1.Text = "Delete Screening Room";
-            this.button1.UseVisualStyleBackColor = true;
+            this.deleteShowtimeButton.Location = new System.Drawing.Point(1003, 487);
+            this.deleteShowtimeButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.deleteShowtimeButton.Name = "deleteShowtimeButton";
+            this.deleteShowtimeButton.Size = new System.Drawing.Size(155, 44);
+            this.deleteShowtimeButton.TabIndex = 330;
+            this.deleteShowtimeButton.Text = "Delete Showtime";
+            this.deleteShowtimeButton.UseVisualStyleBackColor = true;
             // 
             // addShowtimeButton
             // 
@@ -1007,28 +930,143 @@
             this.showtimeRoomComboBox.FormattingEnabled = true;
             this.showtimeRoomComboBox.Location = new System.Drawing.Point(832, 427);
             this.showtimeRoomComboBox.Name = "showtimeRoomComboBox";
-            this.showtimeRoomComboBox.Size = new System.Drawing.Size(134, 24);
+            this.showtimeRoomComboBox.Size = new System.Drawing.Size(174, 24);
             this.showtimeRoomComboBox.TabIndex = 333;
             // 
-            // comboBox1
+            // addShowtimeRoomComboBox
             // 
-            this.comboBox1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(1226, 430);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(135, 24);
-            this.comboBox1.TabIndex = 334;
+            this.addShowtimeRoomComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.addShowtimeRoomComboBox.FormattingEnabled = true;
+            this.addShowtimeRoomComboBox.Location = new System.Drawing.Point(1175, 430);
+            this.addShowtimeRoomComboBox.Name = "addShowtimeRoomComboBox";
+            this.addShowtimeRoomComboBox.Size = new System.Drawing.Size(174, 24);
+            this.addShowtimeRoomComboBox.TabIndex = 334;
+            // 
+            // genreListBox
+            // 
+            this.genreListBox.Enabled = false;
+            this.genreListBox.FormattingEnabled = true;
+            this.genreListBox.ItemHeight = 16;
+            this.genreListBox.Location = new System.Drawing.Point(95, 498);
+            this.genreListBox.Name = "genreListBox";
+            this.genreListBox.Size = new System.Drawing.Size(161, 68);
+            this.genreListBox.TabIndex = 335;
+            // 
+            // editGenreButton
+            // 
+            this.editGenreButton.Enabled = false;
+            this.editGenreButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.editGenreButton.Location = new System.Drawing.Point(262, 496);
+            this.editGenreButton.Name = "editGenreButton";
+            this.editGenreButton.Size = new System.Drawing.Size(55, 35);
+            this.editGenreButton.TabIndex = 336;
+            this.editGenreButton.Text = "Edit";
+            this.editGenreButton.UseVisualStyleBackColor = true;
+            // 
+            // movieImageList
+            // 
+            this.movieImageList.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
+            this.movieImageList.ImageSize = new System.Drawing.Size(255, 255);
+            this.movieImageList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // moviesListView
+            // 
+            this.moviesListView.FullRowSelect = true;
+            this.moviesListView.HideSelection = false;
+            this.moviesListView.Location = new System.Drawing.Point(34, 47);
+            this.moviesListView.Name = "moviesListView";
+            this.moviesListView.Size = new System.Drawing.Size(414, 314);
+            this.moviesListView.TabIndex = 337;
+            this.moviesListView.UseCompatibleStateImageBehavior = false;
+            this.moviesListView.SelectedIndexChanged += new System.EventHandler(this.MoviesListView_SelectedIndexChanged_1);
+            // 
+            // addScreeningRoomDescriptionLabel
+            // 
+            this.addScreeningRoomDescriptionLabel.AutoSize = true;
+            this.addScreeningRoomDescriptionLabel.Location = new System.Drawing.Point(1164, 161);
+            this.addScreeningRoomDescriptionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.addScreeningRoomDescriptionLabel.Name = "addScreeningRoomDescriptionLabel";
+            this.addScreeningRoomDescriptionLabel.Size = new System.Drawing.Size(83, 17);
+            this.addScreeningRoomDescriptionLabel.TabIndex = 343;
+            this.addScreeningRoomDescriptionLabel.Text = "Description:";
+            // 
+            // addScreeningRoomCapacityLabel
+            // 
+            this.addScreeningRoomCapacityLabel.AutoSize = true;
+            this.addScreeningRoomCapacityLabel.Location = new System.Drawing.Point(1164, 115);
+            this.addScreeningRoomCapacityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.addScreeningRoomCapacityLabel.Name = "addScreeningRoomCapacityLabel";
+            this.addScreeningRoomCapacityLabel.Size = new System.Drawing.Size(66, 17);
+            this.addScreeningRoomCapacityLabel.TabIndex = 342;
+            this.addScreeningRoomCapacityLabel.Text = "Capacity:";
+            // 
+            // addScreeningRoomCodeLabel
+            // 
+            this.addScreeningRoomCodeLabel.AutoSize = true;
+            this.addScreeningRoomCodeLabel.Location = new System.Drawing.Point(1164, 70);
+            this.addScreeningRoomCodeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.addScreeningRoomCodeLabel.Name = "addScreeningRoomCodeLabel";
+            this.addScreeningRoomCodeLabel.Size = new System.Drawing.Size(45, 17);
+            this.addScreeningRoomCodeLabel.TabIndex = 341;
+            this.addScreeningRoomCodeLabel.Text = "Code:";
+            // 
+            // addScreeningRoomDescriptionTextBox
+            // 
+            this.addScreeningRoomDescriptionTextBox.Enabled = false;
+            this.addScreeningRoomDescriptionTextBox.Location = new System.Drawing.Point(1165, 183);
+            this.addScreeningRoomDescriptionTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.addScreeningRoomDescriptionTextBox.Name = "addScreeningRoomDescriptionTextBox";
+            this.addScreeningRoomDescriptionTextBox.Size = new System.Drawing.Size(155, 22);
+            this.addScreeningRoomDescriptionTextBox.TabIndex = 340;
+            // 
+            // addScreeningRoomCapacityTextBox
+            // 
+            this.addScreeningRoomCapacityTextBox.Enabled = false;
+            this.addScreeningRoomCapacityTextBox.Location = new System.Drawing.Point(1165, 137);
+            this.addScreeningRoomCapacityTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.addScreeningRoomCapacityTextBox.Name = "addScreeningRoomCapacityTextBox";
+            this.addScreeningRoomCapacityTextBox.Size = new System.Drawing.Size(155, 22);
+            this.addScreeningRoomCapacityTextBox.TabIndex = 339;
+            // 
+            // addScreeningRoomCodeTextBox
+            // 
+            this.addScreeningRoomCodeTextBox.Enabled = false;
+            this.addScreeningRoomCodeTextBox.Location = new System.Drawing.Point(1165, 90);
+            this.addScreeningRoomCodeTextBox.Margin = new System.Windows.Forms.Padding(4);
+            this.addScreeningRoomCodeTextBox.Name = "addScreeningRoomCodeTextBox";
+            this.addScreeningRoomCodeTextBox.Size = new System.Drawing.Size(155, 22);
+            this.addScreeningRoomCodeTextBox.TabIndex = 338;
+            // 
+            // showtimeMovieComboBox
+            // 
+            this.showtimeMovieComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.showtimeMovieComboBox.Enabled = false;
+            this.showtimeMovieComboBox.FormattingEnabled = true;
+            this.showtimeMovieComboBox.Location = new System.Drawing.Point(832, 398);
+            this.showtimeMovieComboBox.Name = "showtimeMovieComboBox";
+            this.showtimeMovieComboBox.Size = new System.Drawing.Size(174, 24);
+            this.showtimeMovieComboBox.TabIndex = 344;
             // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1373, 731);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.showtimeMovieComboBox);
+            this.Controls.Add(this.addScreeningRoomDescriptionLabel);
+            this.Controls.Add(this.addScreeningRoomCapacityLabel);
+            this.Controls.Add(this.addScreeningRoomCodeLabel);
+            this.Controls.Add(this.addScreeningRoomDescriptionTextBox);
+            this.Controls.Add(this.addScreeningRoomCapacityTextBox);
+            this.Controls.Add(this.addScreeningRoomCodeTextBox);
+            this.Controls.Add(this.moviesListView);
+            this.Controls.Add(this.editGenreButton);
+            this.Controls.Add(this.genreListBox);
+            this.Controls.Add(this.addShowtimeRoomComboBox);
             this.Controls.Add(this.showtimeRoomComboBox);
             this.Controls.Add(this.clientPortalButton);
             this.Controls.Add(this.ticketPortalButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.deleteShowtimeButton);
             this.Controls.Add(this.addShowtimeButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.addShowtimeMovieTextBox);
@@ -1046,7 +1084,6 @@
             this.Controls.Add(this.showtimeLabel);
             this.Controls.Add(this.showtimesListBox);
             this.Controls.Add(this.showtimeInfoLabel);
-            this.Controls.Add(this.showtimeMovieTextBox);
             this.Controls.Add(this.showtimeCostLabel);
             this.Controls.Add(this.showtimeRoomLabel);
             this.Controls.Add(this.showtimeCostTextBox);
@@ -1057,12 +1094,6 @@
             this.Controls.Add(this.showtimeIDTextBox);
             this.Controls.Add(this.saveScreeningRoomButton);
             this.Controls.Add(this.modifyScreeningRoomButton);
-            this.Controls.Add(this.addDescriptionLabel);
-            this.Controls.Add(this.addCapacityLabel);
-            this.Controls.Add(this.addCodeLabel);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.addScreeningRoomCapacityTextBox);
-            this.Controls.Add(this.addScreeningRoomCodeTextBox);
             this.Controls.Add(this.screeningRoomsListBox);
             this.Controls.Add(this.screeningRoomInfoLabel);
             this.Controls.Add(this.descriptionLabel);
@@ -1077,7 +1108,6 @@
             this.Controls.Add(this.resetMovieSearchButton);
             this.Controls.Add(this.movieSearchLabel);
             this.Controls.Add(this.movieSearchTextBox);
-            this.Controls.Add(this.genreComboBox);
             this.Controls.Add(this.addMovieGenreComboBox);
             this.Controls.Add(this.idTextBox);
             this.Controls.Add(this.movieIDLabel);
@@ -1117,9 +1147,9 @@
             this.Controls.Add(this.addMovieButton);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.moviePictureBox);
-            this.Controls.Add(this.moviesListView);
             this.Name = "ManagerForm";
             this.Text = "ManagerForm";
+            this.Load += new System.EventHandler(this.ManagerForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.moviePictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -1131,7 +1161,6 @@
         private System.Windows.Forms.Button resetMovieSearchButton;
         private System.Windows.Forms.Label movieSearchLabel;
         private System.Windows.Forms.TextBox movieSearchTextBox;
-        private System.Windows.Forms.ComboBox genreComboBox;
         private System.Windows.Forms.ComboBox addMovieGenreComboBox;
         private System.Windows.Forms.TextBox idTextBox;
         private System.Windows.Forms.Label movieIDLabel;
@@ -1171,7 +1200,6 @@
         private System.Windows.Forms.Button addMovieButton;
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.PictureBox moviePictureBox;
-        private System.Windows.Forms.ListView moviesListView;
         private System.Windows.Forms.Label addScreeningRoomLabel;
         private System.Windows.Forms.Button deleteScreeningRoomButton;
         private System.Windows.Forms.Button addScreeningRoomButton;
@@ -1183,12 +1211,6 @@
         private System.Windows.Forms.TextBox screeningRoomCodeTextBox;
         private System.Windows.Forms.Label screeningRoomInfoLabel;
         private System.Windows.Forms.ListBox screeningRoomsListBox;
-        private System.Windows.Forms.Label addDescriptionLabel;
-        private System.Windows.Forms.Label addCapacityLabel;
-        private System.Windows.Forms.Label addCodeLabel;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox addScreeningRoomCapacityTextBox;
-        private System.Windows.Forms.TextBox addScreeningRoomCodeTextBox;
         private System.Windows.Forms.Button saveScreeningRoomButton;
         private System.Windows.Forms.Button modifyScreeningRoomButton;
         private System.Windows.Forms.Label showtimeCostLabel;
@@ -1199,7 +1221,6 @@
         private System.Windows.Forms.Label showtimeIDLabel;
         private System.Windows.Forms.TextBox showtimeDateTextBox;
         private System.Windows.Forms.TextBox showtimeIDTextBox;
-        private System.Windows.Forms.TextBox showtimeMovieTextBox;
         private System.Windows.Forms.Label showtimeInfoLabel;
         private System.Windows.Forms.ListBox showtimesListBox;
         private System.Windows.Forms.Label showtimeLabel;
@@ -1216,11 +1237,22 @@
         private System.Windows.Forms.Label addShowtimeIDLabel;
         private System.Windows.Forms.TextBox addShowtimeDateTextBox;
         private System.Windows.Forms.TextBox addShowtimeIDTextBox;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button deleteShowtimeButton;
         private System.Windows.Forms.Button addShowtimeButton;
         private System.Windows.Forms.Button ticketPortalButton;
         private System.Windows.Forms.Button clientPortalButton;
         private System.Windows.Forms.ComboBox showtimeRoomComboBox;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox addShowtimeRoomComboBox;
+        private System.Windows.Forms.Button editGenreButton;
+        public System.Windows.Forms.ImageList movieImageList;
+        private System.Windows.Forms.ListView moviesListView;
+        private System.Windows.Forms.Label addScreeningRoomDescriptionLabel;
+        private System.Windows.Forms.Label addScreeningRoomCapacityLabel;
+        private System.Windows.Forms.Label addScreeningRoomCodeLabel;
+        private System.Windows.Forms.TextBox addScreeningRoomDescriptionTextBox;
+        private System.Windows.Forms.TextBox addScreeningRoomCapacityTextBox;
+        private System.Windows.Forms.TextBox addScreeningRoomCodeTextBox;
+        private System.Windows.Forms.ListBox genreListBox;
+        private System.Windows.Forms.ComboBox showtimeMovieComboBox;
     }
 }

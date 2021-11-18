@@ -14,6 +14,8 @@ namespace Project5
         public int MovieID { get; set; }
         public string RoomCode { get; set; }
         public float TicketPrice { get; set; }
+        public List<Movie> Movie { get; set; }
+        public List<ScreeningRoom> ScreeningRoom { get; set; }
 
         //  Constructor
         public Showtime()
@@ -23,6 +25,8 @@ namespace Project5
             MovieID = 0;
             RoomCode = "";
             TicketPrice = 0;
+            Movie = new List<Movie>();
+            ScreeningRoom = new List<ScreeningRoom>();
         }
     }
 }
