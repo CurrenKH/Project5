@@ -673,28 +673,28 @@ namespace Project5
                 int intselectedindex = moviesListView.SelectedIndices[0];
 
                 //  String selected ListView item (movie title) as text
-                string text = moviesListView.Items[intselectedindex].Text;
+                string title = moviesListView.Items[intselectedindex].Text;
 
                 //  Fields to display information by the movie list item via loop method -> title
-                idTextBox.Text = movieList[MovieData(text)].ID.ToString();
-                titleTextBox.Text = movieList[MovieData(text)].Title;
-                yearTextBox.Text = movieList[MovieData(text)].Year.ToString();
-                lengthTextBox.Text = movieList[MovieData(text)].Length.ToString();
-                ratingTextBox.Text = movieList[MovieData(text)].Rating.ToString("N2");
-                imagePathTextBox.Text = movieList[MovieData(text)].ImagePath;
+                idTextBox.Text = movieList[MovieData(title)].ID.ToString();
+                titleTextBox.Text = movieList[MovieData(title)].Title;
+                yearTextBox.Text = movieList[MovieData(title)].Year.ToString();
+                lengthTextBox.Text = movieList[MovieData(title)].Length.ToString();
+                ratingTextBox.Text = movieList[MovieData(title)].Rating.ToString("N2");
+                imagePathTextBox.Text = movieList[MovieData(title)].ImagePath;
 
                 //  Find image index for movieList to affiliate the correct image with the selected movie
-                int imageIndex = movieList.FindIndex(a => a.Title == text);
+                int imageIndex = movieList.FindIndex(a => a.Title == title);
                 moviePictureBox.Image = movieImageList.Images[imageIndex];
 
                 //  Clear ListBox
                 genreListBox.Items.Clear();
 
                 //  For each genre that exists under a single movie, add it to the ListBox
-                foreach (Genre readGenre in movieList[MovieData(text)].Genres)
+                foreach (Genre foundGenre in movieList[MovieData(title)].Genres)
                 {
                     //  Add genre names to ListBox
-                    genreListBox.Items.Add(readGenre.Name);
+                    genreListBox.Items.Add(foundGenre.Name);
                 }
             }
         }

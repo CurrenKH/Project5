@@ -26,6 +26,7 @@ namespace Project5
 
         //  Declare class instance for SQL connection methods
         DBManager dbManager = new DBManager();
+
         private void CreateAccountButton_Click(object sender, EventArgs e)
         {
             //  Declare random variable for ID
