@@ -130,13 +130,14 @@
             // 
             // resetMovieSearchButton
             // 
-            this.resetMovieSearchButton.Location = new System.Drawing.Point(335, 11);
+            this.resetMovieSearchButton.Location = new System.Drawing.Point(335, 13);
             this.resetMovieSearchButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.resetMovieSearchButton.Name = "resetMovieSearchButton";
-            this.resetMovieSearchButton.Size = new System.Drawing.Size(117, 32);
+            this.resetMovieSearchButton.Size = new System.Drawing.Size(113, 32);
             this.resetMovieSearchButton.TabIndex = 266;
             this.resetMovieSearchButton.Text = "Reset Search";
             this.resetMovieSearchButton.UseVisualStyleBackColor = true;
+            this.resetMovieSearchButton.Click += new System.EventHandler(this.ResetMovieSearchButton_Click);
             // 
             // movieSearchLabel
             // 
@@ -155,6 +156,7 @@
             this.movieSearchTextBox.Name = "movieSearchTextBox";
             this.movieSearchTextBox.Size = new System.Drawing.Size(197, 22);
             this.movieSearchTextBox.TabIndex = 264;
+            this.movieSearchTextBox.TextChanged += new System.EventHandler(this.MovieSearchTextBox_TextChanged);
             // 
             // addMovieGenreComboBox
             // 

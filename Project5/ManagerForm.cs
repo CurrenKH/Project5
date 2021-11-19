@@ -463,7 +463,7 @@ namespace Project5
 
                 //  Add to list
                 screeningRoomList.Add(readScreeningRoom);
-                
+
                 //  Add to ComboBoxes
                 showtimeRoomComboBox.Items.Add(readScreeningRoom.Code);
                 addShowtimeRoomComboBox.Items.Add(readScreeningRoom.Code);
@@ -513,7 +513,7 @@ namespace Project5
 
                 //  Add to ListBox
                 showtimesListBox.Items.Add(readShowtime.ID);
-                
+
 
             }
             //  Close DB connection
@@ -754,6 +754,70 @@ namespace Project5
                 showtimeDateTextBox.Text = showtimeList[ShowtimeData(showName)].Time.ToString();
                 showtimeCostTextBox.Text = showtimeList[ShowtimeData(showName)].TicketPrice.ToString();
             }
+        }
+
+        private void ClearMovieInputs()
+        {
+            // Clear TextBoxes
+            idTextBox.Text = "";
+            titleTextBox.Text = "";
+            yearTextBox.Text = "";
+            lengthTextBox.Text = "";
+            ratingTextBox.Text = "";
+            imagePathTextBox.Text = "";
+
+            //  Clear ListBox
+            genreListBox.Items.Clear();
+
+            //  Clear pictureBox
+            moviePictureBox.Image = null;
+        }
+
+        private void MovieSearchTextBox_TextChanged(object sender, EventArgs e)
+        {
+            //  Search function for movie titles
+            //  Source: https://stackoverflow.com/questions/20341113/search-listview-items-using-textbox
+            if (movieSearchTextBox.Text != "")
+            {
+                for (int i = moviesListView.Items.Count - 1; i >= 0; i--)
+                {
+                    var item = moviesListView.Items[i];
+                    if (item.Text.ToLower().Contains(movieSearchTextBox.Text.ToLower()))
+                    {
+                        //  item.BackColor = SystemColors.Highlight;
+                        //  item.ForeColor = SystemColors.HighlightText;
+                    }
+                    else
+                    {
+                        moviesListView.Items.Remove(item);
+                    }
+                }
+                if (moviesListView.SelectedItems.Count == 1)
+                {
+                    moviesListView.Focus();
+                }
+
+            }
+            else
+            {
+                //  If the TextBox is empty revert ListView to default
+                ReadMoviesDB();
+
+                //  Remove movie data method
+                ClearMovieInputs();
+            }
+        }
+
+        private void ResetMovieSearchButton_Click(object sender, EventArgs e)
+        {
+            //  Empty search TextBox
+            movieSearchTextBox.Text = "";
+
+            //  If the TextBox is empty revert ListView to default
+            ReadMoviesDB();
+
+            //  Remove movie data method
+            ClearMovieInputs();
         }
     }
 }
