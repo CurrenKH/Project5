@@ -16,7 +16,7 @@ namespace Project5
         public const string dbName = "project";
 
         //  Declare lists
-        public List<UserAccount> Users = new List<UserAccount>();
+        public List<UserAccount> userList = new List<UserAccount>();
 
         //  Declare MySQL instance for connections
         public MySqlConnection dbConnection;
@@ -74,13 +74,13 @@ namespace Project5
                 selectedManager.SignupDate = dataReader.GetDateTime(6);
 
                 //  Add to users list
-                Users.Add(selectedManager);
+                userList.Add(selectedManager);
 
             }
             //  Close DB connection
             dbConnection.Close();
 
-            return Users;
+            return userList;
         }
 
         public List<UserAccount> ReadClientsDB()
@@ -116,13 +116,13 @@ namespace Project5
                 selectedClient.SignupDate = dataReader.GetDateTime(6);
 
                 //  Add to users list
-                Users.Add(selectedClient);
+                userList.Add(selectedClient);
 
             }
             //  Close DB connection
             dbConnection.Close();
 
-            return Users;
+            return userList;
         }
 
         public int CreateClientDB(UserAccount newClient)

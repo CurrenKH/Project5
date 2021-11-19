@@ -36,7 +36,7 @@ namespace Project5
 
             //  Check IF the inputted username AND/OR password are valid entries using Regex
             //  Source: https://stackoverflow.com/a/3435102/12985943
-            if (dbManager.Users.Exists(x => x.Username == managerUsernameTextBox.Text && x.TypeID == 2 && x.Password == managerPasswordTextBox.Text))
+            if (dbManager.userList.Exists(x => x.Username == managerUsernameTextBox.Text && x.TypeID == 2 && x.Password == managerPasswordTextBox.Text))
             {
                 //  Declare form
                 ManagerForm managerPortal = new ManagerForm();

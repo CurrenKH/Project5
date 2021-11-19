@@ -35,6 +35,7 @@
             this.ticketTextBox = new System.Windows.Forms.TextBox();
             this.moviesLabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.exitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // showtimesListBox
@@ -114,11 +115,22 @@
             this.label2.TabIndex = 22;
             this.label2.Text = "Showtimes:";
             // 
+            // exitButton
+            // 
+            this.exitButton.Location = new System.Drawing.Point(313, 212);
+            this.exitButton.Name = "exitButton";
+            this.exitButton.Size = new System.Drawing.Size(148, 48);
+            this.exitButton.TabIndex = 30;
+            this.exitButton.Text = "Exit";
+            this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.ExitButton_Click);
+            // 
             // Tickets
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(777, 276);
+            this.Controls.Add(this.exitButton);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.moviesLabel);
             this.Controls.Add(this.showtimesListBox);
@@ -142,5 +154,6 @@
         private System.Windows.Forms.TextBox ticketTextBox;
         private System.Windows.Forms.Label moviesLabel;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button exitButton;
     }
 }

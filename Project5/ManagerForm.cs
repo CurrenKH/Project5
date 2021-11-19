@@ -23,6 +23,7 @@ namespace Project5
             dbManager.SetDBConnection("127.0.0.1", "CurrenH", "dfcg22r", "project");
             // =======================================================
 
+            //  Read data methods
             ReadMoviesDB();
             ReadGenresDB();
             ReadScreeningRoomsDB();
@@ -701,7 +702,7 @@ namespace Project5
 
         private void ScreeningRoomsListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // if a ListBox item is not selected
+            //  if a ListBox item is not selected
             if (screeningRoomsListBox.SelectedIndices.Count <= 0)
             {
                 MessageBox.Show("Select a screening room.");

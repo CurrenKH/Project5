@@ -20,9 +20,10 @@ namespace Project5
             //             == FORMAT ==
             //  ( host_name, username, password, db_name )
             //  This method sets up a connection to a MySQL database
-            dbManager.SetDBConnection("127.0.0.1", "CurrenH", "dfcg22r", "project");
+            dbManager.SetDBConnection(dbHost, dbUsername, dbPassword, dbName);
             // =======================================================
 
+            //  Read data methods
             ReadMovieDB();
             ReadShowtimeDB();
         }
@@ -39,11 +40,6 @@ namespace Project5
         //  Declare lists
         List<Movie> movieList = new List<Movie>();
         List<Showtime> showtimeList = new List<Showtime>();
-
-        public static DateTime Date;
-        public static string Movie;
-        public static string Room;
-        public static string ShowTimeId;
 
         private List<Showtime> ReadShowtimeDB()
         {
@@ -250,6 +246,12 @@ namespace Project5
 
             //  Close DB connection
             dbManager.dbConnection.Close();
+        }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            //  Closes the form
+            this.Close();
         }
     }
 }

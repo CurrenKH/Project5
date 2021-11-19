@@ -37,7 +37,7 @@ namespace Project5
 
             //  Check IF the inputted username AND/OR password are valid entries using Regex
             //  Source: https://stackoverflow.com/a/3435102/12985943
-            if (dbManager.Users.Exists(x => x.Username == clientUsernameTextBox.Text && x.TypeID == 1 && x.Password == clientPasswordTextBox.Text))
+            if (dbManager.userList.Exists(x => x.Username == clientUsernameTextBox.Text && x.TypeID == 1 && x.Password == clientPasswordTextBox.Text))
             {
                 //  Declare new form
                 ClientService clientServicePortal= new ClientService();
