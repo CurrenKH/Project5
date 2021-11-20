@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
+using System.Text.RegularExpressions;
 
 namespace Project5
 {
@@ -818,6 +819,166 @@ namespace Project5
 
             //  Remove movie data method
             ClearMovieInputs();
+        }
+
+        private void ClearAddScreeningRoomInputs()
+        {
+            //  Clear TextBoxes
+            addScreeningRoomCapacityTextBox.Text = "";
+            addScreeningRoomDescriptionTextBox.Text = "";
+        }
+
+        private void ClearScreeningRoomInputs()
+        {
+            //  Clear TextBoxes
+            screeningRoomCodeTextBox.Text = "";
+            screeningRoomCapacityTextBox.Text = "";
+            screeningRoomDescriptionTextBox.Text = "";
+        }
+
+        private void AddScreeningRoomButton_Click(object sender, EventArgs e)
+        {
+            //  Declare int variable for integer checking
+            int num = -1;
+
+            //  Create array of TextBoxes
+            //  Source: https://stackoverflow.com/questions/29684210/most-efficient-way-to-see-if-any-of-textboxes-are-empty-c-sharp
+            var textBoxCollection = new[] { addScreeningRoomCapacityTextBox, addScreeningRoomDescriptionTextBox };
+
+            //  Declare boolean value to use for array
+            bool atleastOneTextboxEmpty;
+
+            //  Check if any TextBoxes are empty within the array
+            if (atleastOneTextboxEmpty = textBoxCollection.Any(t => String.IsNullOrWhiteSpace(t.Text)))
+            {
+                //  Show error message
+                MessageBox.Show("Not all entries for ADD SCREENING ROOM are filled.");
+            }
+            //  Integer checking for ID
+            else if (!int.TryParse(addScreeningRoomCapacityTextBox.Text, out num))
+            {
+                //  Show error message
+                MessageBox.Show("Invalid capacity input. Use an integer instead.");
+            }
+            else
+            {
+                //  Random code generator for 2 letters and 1 number
+                //  Source: https://stackoverflow.com/questions/45106385/how-to-generate-random-string-of-numbers-and-letters-in-form-2-letters-4-num/45106818
+                var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+                var numbers = "0123456789";
+
+                //  Maximum length of 3
+                var stringChars = new char[3];
+                var random = new Random();
+
+                //  Generate 2 letters at random
+                for (int i = 0; i < 2; i++)
+                {
+                    stringChars[i] = chars[random.Next(chars.Length)];
+                }
+                //  Generate 1 number at random
+                for (int i = 2; i < 3; i++)
+                {
+                    stringChars[i] = numbers[random.Next(numbers.Length)];
+                }
+
+                //  Return string result of ??#
+                var finalString = new String(stringChars);
+
+                //  Declare screening room
+                ScreeningRoom addScreeningRoom = new ScreeningRoom();
+
+                //  Associate variables with inputted data by the user
+                addScreeningRoom.Code = finalString;
+                addScreeningRoom.Capacity = int.Parse(addScreeningRoomCapacityTextBox.Text);
+                addScreeningRoom.Description = addScreeningRoomDescriptionTextBox.Text;
+
+                //  Clear screening room list
+                screeningRoomList.Clear();
+
+                //  Call method to insert add screening room fields from form to a screening room object in the list
+                dbManager.AddScreeningRoomDB(addScreeningRoom);
+
+                //  Clear ListBox
+                screeningRoomsListBox.Items.Clear();
+
+                //  Read screening rooms from the database
+                ReadScreeningRoomsDB();
+
+                //  Clear input method
+                ClearAddScreeningRoomInputs();
+            }
+        }
+
+        private void DeleteScreeningRoomButton_Click(object sender, EventArgs e)
+        {
+            ScreeningRoom deleteScreeningRoom = new ScreeningRoom();
+
+            deleteScreeningRoom.Code = screeningRoomCodeTextBox.Text;
+            deleteScreeningRoom.Capacity = int.Parse(screeningRoomCapacityTextBox.Text);
+            deleteScreeningRoom.Description = screeningRoomDescriptionTextBox.Text;
+
+            //  Clear screening room list
+            screeningRoomList.Clear();
+
+            //  Call method to delete screening room from the list according to the screening room fields read
+            dbManager.DeleteScreeningRoomDB(deleteScreeningRoom);
+
+            //  Clear ListBox
+            screeningRoomsListBox.Items.Clear();
+
+            //  Read screening rooms from the database
+            ReadScreeningRoomsDB();
+
+            //  Clear inputs method
+            ClearScreeningRoomInputs();
+        }
+
+        private void ModifyScreeningRoomButton_Click(object sender, EventArgs e)
+        {
+            //  Check if a ListBox selection for a screening room exists
+            if (screeningRoomsListBox.SelectedIndex < 0)
+            {
+                //  Show error message
+                MessageBox.Show("Select a screening room from the ListBox.");
+            }
+            //  Otherwise continue actions
+            else
+            {
+                //  Enable TextBoxes and Button to allow access for changes made by the user
+                screeningRoomCapacityTextBox.Enabled = true;
+                screeningRoomDescriptionTextBox.Enabled = true;
+                saveScreeningRoomButton.Enabled = true;
+            }
+        }
+
+        private void SaveScreeningRoomButton_Click(object sender, EventArgs e)
+        {
+            ScreeningRoom modifyScreeningRoom = new ScreeningRoom();
+
+            modifyScreeningRoom.Code = screeningRoomCodeTextBox.Text;
+            modifyScreeningRoom.Capacity = int.Parse(screeningRoomCapacityTextBox.Text);
+            modifyScreeningRoom.Description = screeningRoomDescriptionTextBox.Text;
+
+            //  Clear screening room list
+            screeningRoomList.Clear();
+
+            //  Call method to delete screening room from the list according to the screening room fields read
+            dbManager.ModifyScreeningRoomDB(modifyScreeningRoom);
+
+            //  Clear ListBox
+            screeningRoomsListBox.Items.Clear();
+
+            //  Read screening rooms from the database
+            ReadScreeningRoomsDB();
+
+            //  Clear inputs method
+            ClearScreeningRoomInputs();
+
+            //  Disable TextBoxes and Buttons to deny access for anymore changes made by the user
+            screeningRoomCapacityTextBox.Enabled = false;
+            screeningRoomDescriptionTextBox.Enabled = false;
+            saveScreeningRoomButton.Enabled = false;
         }
     }
 }

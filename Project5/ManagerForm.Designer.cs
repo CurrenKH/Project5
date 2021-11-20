@@ -120,10 +120,8 @@
             this.moviesListView = new System.Windows.Forms.ListView();
             this.addScreeningRoomDescriptionLabel = new System.Windows.Forms.Label();
             this.addScreeningRoomCapacityLabel = new System.Windows.Forms.Label();
-            this.addScreeningRoomCodeLabel = new System.Windows.Forms.Label();
             this.addScreeningRoomDescriptionTextBox = new System.Windows.Forms.TextBox();
             this.addScreeningRoomCapacityTextBox = new System.Windows.Forms.TextBox();
-            this.addScreeningRoomCodeTextBox = new System.Windows.Forms.TextBox();
             this.showtimeMovieComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.moviePictureBox)).BeginInit();
             this.SuspendLayout();
@@ -527,7 +525,7 @@
             // 
             this.addScreeningRoomLabel.AutoSize = true;
             this.addScreeningRoomLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addScreeningRoomLabel.Location = new System.Drawing.Point(1160, 52);
+            this.addScreeningRoomLabel.Location = new System.Drawing.Point(1160, 47);
             this.addScreeningRoomLabel.Name = "addScreeningRoomLabel";
             this.addScreeningRoomLabel.Size = new System.Drawing.Size(47, 20);
             this.addScreeningRoomLabel.TabIndex = 280;
@@ -542,16 +540,18 @@
             this.deleteScreeningRoomButton.TabIndex = 268;
             this.deleteScreeningRoomButton.Text = "Delete Screening Room";
             this.deleteScreeningRoomButton.UseVisualStyleBackColor = true;
+            this.deleteScreeningRoomButton.Click += new System.EventHandler(this.DeleteScreeningRoomButton_Click);
             // 
             // addScreeningRoomButton
             // 
-            this.addScreeningRoomButton.Location = new System.Drawing.Point(1164, 214);
+            this.addScreeningRoomButton.Location = new System.Drawing.Point(1164, 171);
             this.addScreeningRoomButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addScreeningRoomButton.Name = "addScreeningRoomButton";
             this.addScreeningRoomButton.Size = new System.Drawing.Size(156, 44);
             this.addScreeningRoomButton.TabIndex = 267;
             this.addScreeningRoomButton.Text = "Add Screening Room";
             this.addScreeningRoomButton.UseVisualStyleBackColor = true;
+            this.addScreeningRoomButton.Click += new System.EventHandler(this.AddScreeningRoomButton_Click);
             // 
             // descriptionLabel
             // 
@@ -640,6 +640,7 @@
             this.saveScreeningRoomButton.TabIndex = 300;
             this.saveScreeningRoomButton.Text = "Save Modifications";
             this.saveScreeningRoomButton.UseVisualStyleBackColor = true;
+            this.saveScreeningRoomButton.Click += new System.EventHandler(this.SaveScreeningRoomButton_Click);
             // 
             // modifyScreeningRoomButton
             // 
@@ -650,6 +651,7 @@
             this.modifyScreeningRoomButton.TabIndex = 299;
             this.modifyScreeningRoomButton.Text = "Modify Screening Room";
             this.modifyScreeningRoomButton.UseVisualStyleBackColor = true;
+            this.modifyScreeningRoomButton.Click += new System.EventHandler(this.ModifyScreeningRoomButton_Click);
             // 
             // showtimeCostLabel
             // 
@@ -985,7 +987,7 @@
             // addScreeningRoomDescriptionLabel
             // 
             this.addScreeningRoomDescriptionLabel.AutoSize = true;
-            this.addScreeningRoomDescriptionLabel.Location = new System.Drawing.Point(1164, 161);
+            this.addScreeningRoomDescriptionLabel.Location = new System.Drawing.Point(1164, 118);
             this.addScreeningRoomDescriptionLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.addScreeningRoomDescriptionLabel.Name = "addScreeningRoomDescriptionLabel";
             this.addScreeningRoomDescriptionLabel.Size = new System.Drawing.Size(83, 17);
@@ -995,27 +997,16 @@
             // addScreeningRoomCapacityLabel
             // 
             this.addScreeningRoomCapacityLabel.AutoSize = true;
-            this.addScreeningRoomCapacityLabel.Location = new System.Drawing.Point(1164, 115);
+            this.addScreeningRoomCapacityLabel.Location = new System.Drawing.Point(1164, 70);
             this.addScreeningRoomCapacityLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.addScreeningRoomCapacityLabel.Name = "addScreeningRoomCapacityLabel";
             this.addScreeningRoomCapacityLabel.Size = new System.Drawing.Size(66, 17);
             this.addScreeningRoomCapacityLabel.TabIndex = 342;
             this.addScreeningRoomCapacityLabel.Text = "Capacity:";
             // 
-            // addScreeningRoomCodeLabel
-            // 
-            this.addScreeningRoomCodeLabel.AutoSize = true;
-            this.addScreeningRoomCodeLabel.Location = new System.Drawing.Point(1164, 70);
-            this.addScreeningRoomCodeLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.addScreeningRoomCodeLabel.Name = "addScreeningRoomCodeLabel";
-            this.addScreeningRoomCodeLabel.Size = new System.Drawing.Size(45, 17);
-            this.addScreeningRoomCodeLabel.TabIndex = 341;
-            this.addScreeningRoomCodeLabel.Text = "Code:";
-            // 
             // addScreeningRoomDescriptionTextBox
             // 
-            this.addScreeningRoomDescriptionTextBox.Enabled = false;
-            this.addScreeningRoomDescriptionTextBox.Location = new System.Drawing.Point(1165, 183);
+            this.addScreeningRoomDescriptionTextBox.Location = new System.Drawing.Point(1165, 140);
             this.addScreeningRoomDescriptionTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.addScreeningRoomDescriptionTextBox.Name = "addScreeningRoomDescriptionTextBox";
             this.addScreeningRoomDescriptionTextBox.Size = new System.Drawing.Size(155, 22);
@@ -1023,21 +1014,11 @@
             // 
             // addScreeningRoomCapacityTextBox
             // 
-            this.addScreeningRoomCapacityTextBox.Enabled = false;
-            this.addScreeningRoomCapacityTextBox.Location = new System.Drawing.Point(1165, 137);
+            this.addScreeningRoomCapacityTextBox.Location = new System.Drawing.Point(1165, 92);
             this.addScreeningRoomCapacityTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.addScreeningRoomCapacityTextBox.Name = "addScreeningRoomCapacityTextBox";
             this.addScreeningRoomCapacityTextBox.Size = new System.Drawing.Size(155, 22);
             this.addScreeningRoomCapacityTextBox.TabIndex = 339;
-            // 
-            // addScreeningRoomCodeTextBox
-            // 
-            this.addScreeningRoomCodeTextBox.Enabled = false;
-            this.addScreeningRoomCodeTextBox.Location = new System.Drawing.Point(1165, 90);
-            this.addScreeningRoomCodeTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.addScreeningRoomCodeTextBox.Name = "addScreeningRoomCodeTextBox";
-            this.addScreeningRoomCodeTextBox.Size = new System.Drawing.Size(155, 22);
-            this.addScreeningRoomCodeTextBox.TabIndex = 338;
             // 
             // showtimeMovieComboBox
             // 
@@ -1057,10 +1038,8 @@
             this.Controls.Add(this.showtimeMovieComboBox);
             this.Controls.Add(this.addScreeningRoomDescriptionLabel);
             this.Controls.Add(this.addScreeningRoomCapacityLabel);
-            this.Controls.Add(this.addScreeningRoomCodeLabel);
             this.Controls.Add(this.addScreeningRoomDescriptionTextBox);
             this.Controls.Add(this.addScreeningRoomCapacityTextBox);
-            this.Controls.Add(this.addScreeningRoomCodeTextBox);
             this.Controls.Add(this.moviesListView);
             this.Controls.Add(this.editGenreButton);
             this.Controls.Add(this.genreListBox);
@@ -1250,10 +1229,8 @@
         private System.Windows.Forms.ListView moviesListView;
         private System.Windows.Forms.Label addScreeningRoomDescriptionLabel;
         private System.Windows.Forms.Label addScreeningRoomCapacityLabel;
-        private System.Windows.Forms.Label addScreeningRoomCodeLabel;
         private System.Windows.Forms.TextBox addScreeningRoomDescriptionTextBox;
         private System.Windows.Forms.TextBox addScreeningRoomCapacityTextBox;
-        private System.Windows.Forms.TextBox addScreeningRoomCodeTextBox;
         private System.Windows.Forms.ListBox genreListBox;
         private System.Windows.Forms.ComboBox showtimeMovieComboBox;
     }
