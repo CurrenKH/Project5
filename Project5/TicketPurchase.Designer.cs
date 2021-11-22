@@ -123,6 +123,7 @@
             this.exitButton.TabIndex = 32;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = true;
+            this.exitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // TicketPurchase
             // 

@@ -16,5 +16,11 @@ namespace Project5
         {
             InitializeComponent();
         }
+
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
+            //  Closes the form
+            this.Close();
+        }
     }
 }

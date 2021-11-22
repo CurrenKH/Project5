@@ -944,10 +944,10 @@ namespace Project5
             ClearScreeningRoomInputs();
 
             //  Clear ComboBox
-            addShowtimeRoomComboBox.Items.Clear();
+                addShowtimeRoomComboBox.Items.Clear();
 
-            //  Update ComboBox for showtime (add screening room)
-            RefreshScreeningRooms();
+                //  Update ComboBox for showtime (add screening room)
+                RefreshScreeningRooms();
         }
 
         private void ModifyScreeningRoomButton_Click(object sender, EventArgs e)

@@ -210,8 +210,6 @@ namespace Project5
                 //  String selected ListView item (movie title) as text
                 string title = moviesListBox.Items[index].ToString();
 
-                //Movie = movieList[MovieData(title)].Title;
-
                 //  For each showtime that exists under a single movie, add it to the showtimesListBox
                 foreach (Showtime foundShowtime in movieList[MovieData(title)].Showtime)
                 {

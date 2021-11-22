@@ -104,9 +104,7 @@
             this.addShowtimeCostTextBox = new System.Windows.Forms.TextBox();
             this.addShowtimeMovieLabel = new System.Windows.Forms.Label();
             this.addShowtimeDateLabel = new System.Windows.Forms.Label();
-            this.addShowtimeIDLabel = new System.Windows.Forms.Label();
             this.addShowtimeDateTextBox = new System.Windows.Forms.TextBox();
-            this.addShowtimeIDTextBox = new System.Windows.Forms.TextBox();
             this.deleteShowtimeButton = new System.Windows.Forms.Button();
             this.addShowtimeButton = new System.Windows.Forms.Button();
             this.ticketPortalButton = new System.Windows.Forms.Button();
@@ -231,7 +229,6 @@
             // 
             // addMovieImagePathTextBox
             // 
-            this.addMovieImagePathTextBox.Enabled = false;
             this.addMovieImagePathTextBox.Location = new System.Drawing.Point(401, 575);
             this.addMovieImagePathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addMovieImagePathTextBox.Name = "addMovieImagePathTextBox";
@@ -806,7 +803,7 @@
             // addShowtimeCostLabel
             // 
             this.addShowtimeCostLabel.AutoSize = true;
-            this.addShowtimeCostLabel.Location = new System.Drawing.Point(1133, 465);
+            this.addShowtimeCostLabel.Location = new System.Drawing.Point(1133, 432);
             this.addShowtimeCostLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.addShowtimeCostLabel.Name = "addShowtimeCostLabel";
             this.addShowtimeCostLabel.Size = new System.Drawing.Size(40, 17);
@@ -816,7 +813,7 @@
             // addShowtimeRoomLabel
             // 
             this.addShowtimeRoomLabel.AutoSize = true;
-            this.addShowtimeRoomLabel.Location = new System.Drawing.Point(1124, 434);
+            this.addShowtimeRoomLabel.Location = new System.Drawing.Point(1124, 401);
             this.addShowtimeRoomLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.addShowtimeRoomLabel.Name = "addShowtimeRoomLabel";
             this.addShowtimeRoomLabel.Size = new System.Drawing.Size(49, 17);
@@ -825,7 +822,7 @@
             // 
             // addShowtimeCostTextBox
             // 
-            this.addShowtimeCostTextBox.Location = new System.Drawing.Point(1175, 460);
+            this.addShowtimeCostTextBox.Location = new System.Drawing.Point(1175, 427);
             this.addShowtimeCostTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.addShowtimeCostTextBox.Name = "addShowtimeCostTextBox";
             this.addShowtimeCostTextBox.Size = new System.Drawing.Size(174, 22);
@@ -834,7 +831,7 @@
             // addShowtimeMovieLabel
             // 
             this.addShowtimeMovieLabel.AutoSize = true;
-            this.addShowtimeMovieLabel.Location = new System.Drawing.Point(1124, 404);
+            this.addShowtimeMovieLabel.Location = new System.Drawing.Point(1124, 371);
             this.addShowtimeMovieLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.addShowtimeMovieLabel.Name = "addShowtimeMovieLabel";
             this.addShowtimeMovieLabel.Size = new System.Drawing.Size(49, 17);
@@ -844,38 +841,20 @@
             // addShowtimeDateLabel
             // 
             this.addShowtimeDateLabel.AutoSize = true;
-            this.addShowtimeDateLabel.Location = new System.Drawing.Point(1131, 374);
+            this.addShowtimeDateLabel.Location = new System.Drawing.Point(1131, 341);
             this.addShowtimeDateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.addShowtimeDateLabel.Name = "addShowtimeDateLabel";
             this.addShowtimeDateLabel.Size = new System.Drawing.Size(42, 17);
             this.addShowtimeDateLabel.TabIndex = 321;
             this.addShowtimeDateLabel.Text = "Date:";
             // 
-            // addShowtimeIDLabel
-            // 
-            this.addShowtimeIDLabel.AutoSize = true;
-            this.addShowtimeIDLabel.Location = new System.Drawing.Point(1148, 344);
-            this.addShowtimeIDLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.addShowtimeIDLabel.Name = "addShowtimeIDLabel";
-            this.addShowtimeIDLabel.Size = new System.Drawing.Size(25, 17);
-            this.addShowtimeIDLabel.TabIndex = 320;
-            this.addShowtimeIDLabel.Text = "ID:";
-            // 
             // addShowtimeDateTextBox
             // 
-            this.addShowtimeDateTextBox.Location = new System.Drawing.Point(1175, 371);
+            this.addShowtimeDateTextBox.Location = new System.Drawing.Point(1175, 338);
             this.addShowtimeDateTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.addShowtimeDateTextBox.Name = "addShowtimeDateTextBox";
             this.addShowtimeDateTextBox.Size = new System.Drawing.Size(174, 22);
             this.addShowtimeDateTextBox.TabIndex = 319;
-            // 
-            // addShowtimeIDTextBox
-            // 
-            this.addShowtimeIDTextBox.Location = new System.Drawing.Point(1175, 341);
-            this.addShowtimeIDTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.addShowtimeIDTextBox.Name = "addShowtimeIDTextBox";
-            this.addShowtimeIDTextBox.Size = new System.Drawing.Size(174, 22);
-            this.addShowtimeIDTextBox.TabIndex = 318;
             // 
             // deleteShowtimeButton
             // 
@@ -933,7 +912,7 @@
             // 
             this.addShowtimeRoomComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.addShowtimeRoomComboBox.FormattingEnabled = true;
-            this.addShowtimeRoomComboBox.Location = new System.Drawing.Point(1175, 430);
+            this.addShowtimeRoomComboBox.Location = new System.Drawing.Point(1175, 397);
             this.addShowtimeRoomComboBox.Name = "addShowtimeRoomComboBox";
             this.addShowtimeRoomComboBox.Size = new System.Drawing.Size(174, 24);
             this.addShowtimeRoomComboBox.TabIndex = 334;
@@ -1026,7 +1005,7 @@
             // 
             this.addShowtimeMovieComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.addShowtimeMovieComboBox.FormattingEnabled = true;
-            this.addShowtimeMovieComboBox.Location = new System.Drawing.Point(1175, 401);
+            this.addShowtimeMovieComboBox.Location = new System.Drawing.Point(1175, 368);
             this.addShowtimeMovieComboBox.Name = "addShowtimeMovieComboBox";
             this.addShowtimeMovieComboBox.Size = new System.Drawing.Size(174, 24);
             this.addShowtimeMovieComboBox.TabIndex = 345;
@@ -1057,9 +1036,7 @@
             this.Controls.Add(this.addShowtimeCostTextBox);
             this.Controls.Add(this.addShowtimeMovieLabel);
             this.Controls.Add(this.addShowtimeDateLabel);
-            this.Controls.Add(this.addShowtimeIDLabel);
             this.Controls.Add(this.addShowtimeDateTextBox);
-            this.Controls.Add(this.addShowtimeIDTextBox);
             this.Controls.Add(this.saveShowtimeButton);
             this.Controls.Add(this.modifyShowtimeButton);
             this.Controls.Add(this.screeningRoomLabel);
@@ -1215,9 +1192,7 @@
         private System.Windows.Forms.TextBox addShowtimeCostTextBox;
         private System.Windows.Forms.Label addShowtimeMovieLabel;
         private System.Windows.Forms.Label addShowtimeDateLabel;
-        private System.Windows.Forms.Label addShowtimeIDLabel;
         private System.Windows.Forms.TextBox addShowtimeDateTextBox;
-        private System.Windows.Forms.TextBox addShowtimeIDTextBox;
         private System.Windows.Forms.Button deleteShowtimeButton;
         private System.Windows.Forms.Button addShowtimeButton;
         private System.Windows.Forms.Button ticketPortalButton;
