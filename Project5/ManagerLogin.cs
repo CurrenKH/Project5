@@ -49,11 +49,23 @@ namespace Project5
                 //  Display new form
                 managerPortal.ShowDialog();
             }
-            //  Otherwise if there is one or more invalid entries
-            else
+            //  If both entries are incorrect
+            else if (dbManager.userList.Exists(x => x.Username != managerUsernameTextBox.Text && x.TypeID == 2 && x.Password != managerPasswordTextBox.Text))
             {
                 //  Display error message
-                MessageBox.Show("Access denied. Manager username and/or Password are incorrect.");
+                MessageBox.Show("Access denied. Incorrect username and password.");
+            }
+            //  If the username is incorrect
+            else if (dbManager.userList.Exists(x => x.Username != managerUsernameTextBox.Text && x.TypeID == 2))
+            {
+                //  Display error message
+                MessageBox.Show("Access denied. Incorrect username.");
+            }
+            //  If the password is incorrect
+            else if (dbManager.userList.Exists(x => x.Password != managerPasswordTextBox.Text && x.TypeID == 2))
+            {
+                //  Display error message
+                MessageBox.Show("Access denied. Incorrect password.");
             }
         }
 

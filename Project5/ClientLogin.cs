@@ -49,11 +49,23 @@ namespace Project5
                 //  Open form
                 clientServicePortal.ShowDialog();
             }
-            //  Otherwise if there is one or more invalid entries
-            else
+            //  If both entries are incorrect
+            else if (dbManager.userList.Exists(x => x.Username != clientUsernameTextBox.Text && x.TypeID == 2 && x.Password != clientPasswordTextBox.Text))
             {
                 //  Display error message
-                MessageBox.Show("Access denied. Client username and/or Password are incorrect.");
+                MessageBox.Show("Access denied. Incorrect username and password.");
+            }
+            //  If the username is incorrect
+            else if (dbManager.userList.Exists(x => x.Username != clientUsernameTextBox.Text && x.TypeID == 2))
+            {
+                //  Display error message
+                MessageBox.Show("Access denied. Incorrect username.");
+            }
+            //  If the password is incorrect
+            else if (dbManager.userList.Exists(x => x.Password != clientPasswordTextBox.Text && x.TypeID == 2))
+            {
+                //  Display error message
+                MessageBox.Show("Access denied. Incorrect password.");
             }
         }
 
