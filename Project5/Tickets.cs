@@ -213,8 +213,8 @@ namespace Project5
                 //  For each showtime that exists under a single movie, add it to the showtimesListBox
                 foreach (Showtime foundShowtime in movieList[MovieData(title)].Showtime)
                 {
-                    //  Add to ListBox in DateTime format YYYY-MM-DD HH:MM:SS
-                    showtimesListBox.Items.Add(Convert.ToDateTime(foundShowtime.Time).ToString("yyyy-MM-dd HH:mm:ss"));
+                    //  Add to ListBox in DateTime format YYYY-MM-DD HH:MM AM/PM
+                    showtimesListBox.Items.Add(Convert.ToDateTime(foundShowtime.Time).ToString("yyyy-MM-dd HH:mm tt"));
                 }
             }
         }
