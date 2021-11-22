@@ -132,6 +132,7 @@
             this.Controls.Add(this.clientUsernameTextBox);
             this.Name = "ClientLogin";
             this.Text = "ClientLogin";
+            this.Load += new System.EventHandler(this.ClientLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

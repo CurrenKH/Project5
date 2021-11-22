@@ -107,6 +107,7 @@
             this.Controls.Add(this.managerUsernameTextBox);
             this.Name = "ManagerLogin";
             this.Text = "ManagerLogin";
+            this.Load += new System.EventHandler(this.ManagerLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

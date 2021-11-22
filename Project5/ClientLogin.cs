@@ -25,6 +25,10 @@ namespace Project5
 
             //  Call method to read existing clients
             dbManager.ReadClientsDB();
+
+            //  The password character is an asterisk
+            //  Source: https://docs.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-create-a-password-text-box-with-the-windows-forms-textbox-control?view=netframeworkdesktop-4.8
+            clientPasswordTextBox.PasswordChar = '*';
         }
 
         //  Declare class instance for SQL connection methods
@@ -60,6 +64,11 @@ namespace Project5
 
             //  Open new form
             signupForm.ShowDialog();
+        }
+
+        private void ClientLogin_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

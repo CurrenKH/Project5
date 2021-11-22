@@ -23,7 +23,12 @@ namespace Project5
             dbManager.SetDBConnection("127.0.0.1", "CurrenH", "dfcg22r", "project");
             // =======================================================
 
+            //  Call method to read existing managers
             dbManager.ReadManagersDB();
+
+            //  The password character is an asterisk
+            //  Source: https://docs.microsoft.com/en-us/dotnet/desktop/winforms/controls/how-to-create-a-password-text-box-with-the-windows-forms-textbox-control?view=netframeworkdesktop-4.8
+            managerPasswordTextBox.PasswordChar = '*';
         }
 
         //  Declare class instance for SQL connection methods
@@ -50,6 +55,11 @@ namespace Project5
                 //  Display error message
                 MessageBox.Show("Access denied. Manager username and/or Password are incorrect.");
             }
+        }
+
+        private void ManagerLogin_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
