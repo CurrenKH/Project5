@@ -18,21 +18,15 @@ namespace Project5
             InitializeComponent();
 
             //             == FORMAT ==
-            //  ( host_name, username, password, db_name )
+            //  To change the format you must edit the const strings at the top of the DBManager.cs file
             //  This method sets up a connection to a MySQL database
-            dbManager.SetDBConnection(dbHost, dbUsername, dbPassword, dbName);
+            dbManager.SetDBConnection();
             // =======================================================
 
             //  Read data methods
             ReadMovieDB();
             ReadShowtimeDB();
         }
-
-        //  Constants to use when creating connections to the database
-        public const string dbHost = "127.0.0.1";
-        public const string dbUsername = "CurrenH";
-        public const string dbPassword = "dfcg22r";
-        public const string dbName = "project";
 
         //  Declare class instance for SQL connection methods
         DBManager dbManager = new DBManager();
@@ -130,7 +124,7 @@ namespace Project5
         private List<Showtime> LoadShowtime(int movieID)
         {
             //  The following objects will be used to access the jt_genre_movie table
-            MySqlConnection dbConnection3 = dbManager.CreateDBConnection(dbHost, dbUsername, dbPassword, dbName);
+            MySqlConnection dbConnection3 = dbManager.CreateDBConnection();
             MySqlCommand dbCommand3;
             MySqlDataReader dataReader3;
 

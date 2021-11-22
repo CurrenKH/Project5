@@ -18,9 +18,9 @@ namespace Project5
             InitializeComponent();
 
             //             == FORMAT ==
-            //  ( host_name, username, password, db_name )
+            //  To change the connection format you must edit the const strings at the top of the DBManager.cs file
             //  This method sets up a connection to a MySQL database
-            dbManager.SetDBConnection("127.0.0.1", "CurrenH", "dfcg22r", "project");
+            dbManager.SetDBConnection();
             // =======================================================
 
             //  Call method to read existing managers

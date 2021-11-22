@@ -90,6 +90,7 @@
             this.moviesListBox.Name = "moviesListBox";
             this.moviesListBox.Size = new System.Drawing.Size(264, 228);
             this.moviesListBox.TabIndex = 14;
+            this.moviesListBox.SelectedIndexChanged += new System.EventHandler(this.MoviesListBox_SelectedIndexChanged);
             // 
             // exitButton
             // 

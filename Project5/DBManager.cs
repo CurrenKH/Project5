@@ -23,18 +23,18 @@ namespace Project5
 
         //ManagerForm managerForm = new ManagerForm();
 
-        public void SetDBConnection(string serverAddress, string username, string passwd, string dbName)
+        public void SetDBConnection()
         {
             //  Set connection
-            string connectionString = "Host=" + serverAddress + "; Username=" + username + "; Password=" + passwd + "; Database=" + dbName + ";";
+            string connectionString = "Host=" + dbHost + "; Username=" + dbUsername + "; Password=" + dbPassword + "; Database=" + dbName + ";";
 
             dbConnection = new MySqlConnection(connectionString);
         }
 
-        public MySqlConnection CreateDBConnection(string serverAddress, string username, string passwd, string dbName)
+        public MySqlConnection CreateDBConnection()
         {
             //  String to connect to database
-            string connection = "Host=" + serverAddress + "; Username=" + username + "; Password=" + passwd + "; Database=" + dbName + ";";
+            string connection = "Host=" + dbHost + "; Username=" + dbUsername + "; Password=" + dbPassword + "; Database=" + dbName + ";";
 
             dbConnection = new MySqlConnection(connection);
 
@@ -173,7 +173,7 @@ namespace Project5
                 Console.WriteLine("Error adding new client.");
 
                 //  Open and close connection upon an error
-                MySqlConnection dbConnection2 = CreateDBConnection(dbHost, dbUsername, dbPassword, dbName);
+                MySqlConnection dbConnection2 = CreateDBConnection();
 
                 dbConnection2.Close();
 
@@ -219,7 +219,7 @@ namespace Project5
                 Console.WriteLine("Error adding screening room.");
 
                 //  Open and close connection upon an error
-                MySqlConnection dbConnection3 = CreateDBConnection(dbHost, dbUsername, dbPassword, dbName);
+                MySqlConnection dbConnection3 = CreateDBConnection();
 
                 dbConnection3.Close();
 
@@ -270,7 +270,7 @@ namespace Project5
                 Console.WriteLine("you must delete the showtime first and which *cancels* the event.");
 
                 //  Open and close connection upon an error
-                MySqlConnection dbConnection3 = CreateDBConnection(dbHost, dbUsername, dbPassword, dbName);
+                MySqlConnection dbConnection3 = CreateDBConnection();
 
                 dbConnection3.Close();
 

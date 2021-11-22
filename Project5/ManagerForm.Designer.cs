@@ -99,7 +99,6 @@
             this.saveShowtimeButton = new System.Windows.Forms.Button();
             this.modifyShowtimeButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.addShowtimeMovieTextBox = new System.Windows.Forms.TextBox();
             this.addShowtimeCostLabel = new System.Windows.Forms.Label();
             this.addShowtimeRoomLabel = new System.Windows.Forms.Label();
             this.addShowtimeCostTextBox = new System.Windows.Forms.TextBox();
@@ -123,6 +122,7 @@
             this.addScreeningRoomDescriptionTextBox = new System.Windows.Forms.TextBox();
             this.addScreeningRoomCapacityTextBox = new System.Windows.Forms.TextBox();
             this.showtimeMovieComboBox = new System.Windows.Forms.ComboBox();
+            this.addShowtimeMovieComboBox = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.moviePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -775,7 +775,7 @@
             // saveShowtimeButton
             // 
             this.saveShowtimeButton.Enabled = false;
-            this.saveShowtimeButton.Location = new System.Drawing.Point(810, 535);
+            this.saveShowtimeButton.Location = new System.Drawing.Point(832, 535);
             this.saveShowtimeButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.saveShowtimeButton.Name = "saveShowtimeButton";
             this.saveShowtimeButton.Size = new System.Drawing.Size(156, 44);
@@ -785,7 +785,7 @@
             // 
             // modifyShowtimeButton
             // 
-            this.modifyShowtimeButton.Location = new System.Drawing.Point(810, 487);
+            this.modifyShowtimeButton.Location = new System.Drawing.Point(832, 487);
             this.modifyShowtimeButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.modifyShowtimeButton.Name = "modifyShowtimeButton";
             this.modifyShowtimeButton.Size = new System.Drawing.Size(156, 44);
@@ -802,14 +802,6 @@
             this.label1.Size = new System.Drawing.Size(47, 20);
             this.label1.TabIndex = 328;
             this.label1.Text = "Add:";
-            // 
-            // addShowtimeMovieTextBox
-            // 
-            this.addShowtimeMovieTextBox.Location = new System.Drawing.Point(1175, 401);
-            this.addShowtimeMovieTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.addShowtimeMovieTextBox.Name = "addShowtimeMovieTextBox";
-            this.addShowtimeMovieTextBox.Size = new System.Drawing.Size(174, 22);
-            this.addShowtimeMovieTextBox.TabIndex = 326;
             // 
             // addShowtimeCostLabel
             // 
@@ -833,7 +825,7 @@
             // 
             // addShowtimeCostTextBox
             // 
-            this.addShowtimeCostTextBox.Location = new System.Drawing.Point(1175, 461);
+            this.addShowtimeCostTextBox.Location = new System.Drawing.Point(1175, 460);
             this.addShowtimeCostTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.addShowtimeCostTextBox.Name = "addShowtimeCostTextBox";
             this.addShowtimeCostTextBox.Size = new System.Drawing.Size(174, 22);
@@ -897,7 +889,7 @@
             // 
             // addShowtimeButton
             // 
-            this.addShowtimeButton.Location = new System.Drawing.Point(1206, 487);
+            this.addShowtimeButton.Location = new System.Drawing.Point(1175, 487);
             this.addShowtimeButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addShowtimeButton.Name = "addShowtimeButton";
             this.addShowtimeButton.Size = new System.Drawing.Size(155, 44);
@@ -1030,11 +1022,21 @@
             this.showtimeMovieComboBox.Size = new System.Drawing.Size(174, 24);
             this.showtimeMovieComboBox.TabIndex = 344;
             // 
+            // addShowtimeMovieComboBox
+            // 
+            this.addShowtimeMovieComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.addShowtimeMovieComboBox.FormattingEnabled = true;
+            this.addShowtimeMovieComboBox.Location = new System.Drawing.Point(1175, 401);
+            this.addShowtimeMovieComboBox.Name = "addShowtimeMovieComboBox";
+            this.addShowtimeMovieComboBox.Size = new System.Drawing.Size(174, 24);
+            this.addShowtimeMovieComboBox.TabIndex = 345;
+            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1373, 731);
+            this.Controls.Add(this.addShowtimeMovieComboBox);
             this.Controls.Add(this.showtimeMovieComboBox);
             this.Controls.Add(this.addScreeningRoomDescriptionLabel);
             this.Controls.Add(this.addScreeningRoomCapacityLabel);
@@ -1050,7 +1052,6 @@
             this.Controls.Add(this.deleteShowtimeButton);
             this.Controls.Add(this.addShowtimeButton);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.addShowtimeMovieTextBox);
             this.Controls.Add(this.addShowtimeCostLabel);
             this.Controls.Add(this.addShowtimeRoomLabel);
             this.Controls.Add(this.addShowtimeCostTextBox);
@@ -1209,7 +1210,6 @@
         private System.Windows.Forms.Button saveShowtimeButton;
         private System.Windows.Forms.Button modifyShowtimeButton;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox addShowtimeMovieTextBox;
         private System.Windows.Forms.Label addShowtimeCostLabel;
         private System.Windows.Forms.Label addShowtimeRoomLabel;
         private System.Windows.Forms.TextBox addShowtimeCostTextBox;
@@ -1233,5 +1233,6 @@
         private System.Windows.Forms.TextBox addScreeningRoomCapacityTextBox;
         private System.Windows.Forms.ListBox genreListBox;
         private System.Windows.Forms.ComboBox showtimeMovieComboBox;
+        private System.Windows.Forms.ComboBox addShowtimeMovieComboBox;
     }
 }

@@ -19,9 +19,9 @@ namespace Project5
             InitializeComponent();
 
             //             == FORMAT ==
-            //  ( host_name, username, password, db_name )
+            //  To change the format you must edit the const strings at the top of the DBManager.cs file
             //  This method sets up a connection to a MySQL database
-            dbManager.SetDBConnection("127.0.0.1", "CurrenH", "dfcg22r", "project");
+            dbManager.SetDBConnection();
             // =======================================================
 
             //  Read data methods
@@ -32,12 +32,6 @@ namespace Project5
             ReadShowtimeMovieDB();
             ReadShowtimeScreeningRoomDB();
         }
-
-        //  Constants to use when creating connections to the database
-        public const string dbHost = "127.0.0.1";
-        public const string dbUsername = "CurrenH";
-        public const string dbPassword = "dfcg22r";
-        public const string dbName = "project";
 
         //  Declare class instance for SQL connection methods
         DBManager dbManager = new DBManager();
@@ -214,12 +208,12 @@ namespace Project5
         private List<Genre> LoadMovieGenres(int movieID)
         {
             //  The following objects will be used to access the jt_genre_movie table
-            MySqlConnection dbConnection2 = dbManager.CreateDBConnection(dbHost, dbUsername, dbPassword, dbName);
+            MySqlConnection dbConnection2 = dbManager.CreateDBConnection();
             MySqlCommand dbCommand2;
             MySqlDataReader dataReader2;
 
             //  The following objects will be used to access the genre table
-            MySqlConnection dbConnection3 = dbManager.CreateDBConnection(dbHost, dbUsername, dbPassword, dbName);
+            MySqlConnection dbConnection3 = dbManager.CreateDBConnection();
             MySqlCommand dbCommand3;
             MySqlDataReader dataReader3;
 
@@ -296,7 +290,7 @@ namespace Project5
         private List<Showtime> LoadShowtime(int movieID)
         {
             //The following Connection, Command and DataReader objects will be used to access the jt_genre_movie table
-            MySqlConnection dbConnection4 = dbManager.CreateDBConnection(dbHost, dbUsername, dbPassword, dbName);
+            MySqlConnection dbConnection4 = dbManager.CreateDBConnection();
             MySqlCommand dbCommand4;
             MySqlDataReader dataReader4;
 
@@ -425,8 +419,9 @@ namespace Project5
                 //  Add to list
                 movieList.Add(readMovie);
 
-                //  Add to ComboBox
+                //  Add to ComboBoxes
                 showtimeMovieComboBox.Items.Add(readMovie.Title);
+                addShowtimeMovieComboBox.Items.Add(readMovie.Title);
 
             }
             //  Close DB connection
@@ -526,7 +521,7 @@ namespace Project5
         private List<Movie> LoadMovie(int movieID)
         {
             //  The following objects will be used to access the jt_genre_movie table
-            MySqlConnection dbConnection9 = dbManager.CreateDBConnection(dbHost, dbUsername, dbPassword, dbName);
+            MySqlConnection dbConnection9 = dbManager.CreateDBConnection();
             MySqlCommand dbCommand9;
             MySqlDataReader dataReader9;
 
@@ -573,7 +568,7 @@ namespace Project5
         private List<ScreeningRoom> LoadScreeningRoom(string roomCode)
         {
             //  The following objects will be used to access the jt_genre_movie table
-            MySqlConnection dbConnection10 = dbManager.CreateDBConnection(dbHost, dbUsername, dbPassword, dbName);
+            MySqlConnection dbConnection10 = dbManager.CreateDBConnection();
             MySqlCommand dbCommand10;
             MySqlDataReader dataReader10;
 
@@ -836,6 +831,15 @@ namespace Project5
             screeningRoomDescriptionTextBox.Text = "";
         }
 
+        private void RefreshScreeningRooms()
+        {
+            //  Loop to repopulate addShowtimeRoomComboBox after a data change method is used
+            for (int i = 0; i < screeningRoomList.Count; i++)
+            {
+                addShowtimeRoomComboBox.Items.Add(screeningRoomList[i].Code);
+            }
+        }
+
         private void AddScreeningRoomButton_Click(object sender, EventArgs e)
         {
             //  Declare int variable for integer checking
@@ -907,6 +911,12 @@ namespace Project5
 
                 //  Clear input method
                 ClearAddScreeningRoomInputs();
+
+                //  Clear ComboBox
+                addShowtimeRoomComboBox.Items.Clear();
+
+                //  Update ComboBox for showtime (add screening room)
+                RefreshScreeningRooms();
             }
         }
 
@@ -932,6 +942,12 @@ namespace Project5
 
             //  Clear inputs method
             ClearScreeningRoomInputs();
+
+            //  Clear ComboBox
+            addShowtimeRoomComboBox.Items.Clear();
+
+            //  Update ComboBox for showtime (add screening room)
+            RefreshScreeningRooms();
         }
 
         private void ModifyScreeningRoomButton_Click(object sender, EventArgs e)
