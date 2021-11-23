@@ -336,6 +336,12 @@ namespace Project5
 
         private List<ScreeningRoom> ReadScreeningRoomsDB()
         {
+            //  Clear ListBox
+            screeningRoomsListBox.Items.Clear();
+
+            //  Clear screening room list
+            screeningRoomList.Clear();
+
             //  Declare screening room
             ScreeningRoom readScreeningRoom;
 
@@ -658,6 +664,13 @@ namespace Project5
         {
             //  Format ListView upon loading form
             FormatListView();
+
+            //  Format for both DateTimePickers
+            addShowtimeDateTimePicker.CustomFormat = "MM/dd/yyyy hh:mm:ss tt";
+            addShowtimeDateTimePicker.Format = DateTimePickerFormat.Custom;
+
+            showtimeDateTimePicker.CustomFormat = "MM/dd/yyyy hh:mm:ss tt";
+            showtimeDateTimePicker.Format = DateTimePickerFormat.Custom;
         }
 
         private void MoviesListView_SelectedIndexChanged_1(object sender, EventArgs e)
@@ -727,6 +740,10 @@ namespace Project5
             //  Otherwise
             else
             {
+                //  Format DateTimePicker
+                showtimeDateTimePicker.CustomFormat = "MM/dd/yyyy hh:mm:ss tt";
+                showtimeDateTimePicker.Format = DateTimePickerFormat.Custom;
+
                 //  Set int variable to selected ListBox item in array (#0)
                 int index = showtimesListBox.SelectedIndices[0];
 
@@ -747,7 +764,7 @@ namespace Project5
 
                 //  Fields to display information by the showtime item
                 showtimeIDTextBox.Text = showtimeList[ShowtimeData(showName)].ID.ToString();
-                showtimeDateTextBox.Text = showtimeList[ShowtimeData(showName)].Time.ToString();
+                showtimeDateTimePicker.Text = showtimeList[ShowtimeData(showName)].Time.ToString();
                 showtimeCostTextBox.Text = showtimeList[ShowtimeData(showName)].TicketPrice.ToString();
             }
         }
@@ -833,10 +850,11 @@ namespace Project5
 
         private void RefreshScreeningRooms()
         {
-            //  Loop to repopulate addShowtimeRoomComboBox after a data change method is used
+            //  Loop to repopulate ComboBoxes after a data change method is used
             for (int i = 0; i < screeningRoomList.Count; i++)
             {
                 addShowtimeRoomComboBox.Items.Add(screeningRoomList[i].Code);
+                showtimeRoomComboBox.Items.Add(screeningRoomList[i].Code);
             }
         }
 
@@ -912,8 +930,9 @@ namespace Project5
                 //  Clear input method
                 ClearAddScreeningRoomInputs();
 
-                //  Clear ComboBox
+                //  Clear ComboBoxes
                 addShowtimeRoomComboBox.Items.Clear();
+                showtimeRoomComboBox.Items.Clear();
 
                 //  Update ComboBox for showtime (add screening room)
                 RefreshScreeningRooms();
@@ -943,11 +962,12 @@ namespace Project5
             //  Clear inputs method
             ClearScreeningRoomInputs();
 
-            //  Clear ComboBox
-                addShowtimeRoomComboBox.Items.Clear();
+            //  Clear ComboBoxes
+            addShowtimeRoomComboBox.Items.Clear();
+            showtimeRoomComboBox.Items.Clear();
 
-                //  Update ComboBox for showtime (add screening room)
-                RefreshScreeningRooms();
+            //  Update ComboBox for showtime (add screening room)
+            RefreshScreeningRooms();
         }
 
         private void ModifyScreeningRoomButton_Click(object sender, EventArgs e)
@@ -970,31 +990,359 @@ namespace Project5
 
         private void SaveScreeningRoomButton_Click(object sender, EventArgs e)
         {
-            ScreeningRoom modifyScreeningRoom = new ScreeningRoom();
+            //  Declare int variable for integer checking
+            int num = -1;
 
-            modifyScreeningRoom.Code = screeningRoomCodeTextBox.Text;
-            modifyScreeningRoom.Capacity = int.Parse(screeningRoomCapacityTextBox.Text);
-            modifyScreeningRoom.Description = screeningRoomDescriptionTextBox.Text;
+            //  Create array of TextBoxes
+            var textBoxCollection = new[] { screeningRoomCapacityTextBox, screeningRoomDescriptionTextBox };
 
-            //  Clear screening room list
-            screeningRoomList.Clear();
+            //  Declare boolean value to use for array
+            bool atleastOneTextboxEmpty;
 
-            //  Call method to delete screening room from the list according to the screening room fields read
-            dbManager.ModifyScreeningRoomDB(modifyScreeningRoom);
+            //  Check if any TextBoxes are empty within the array
+            if (atleastOneTextboxEmpty = textBoxCollection.Any(t => String.IsNullOrWhiteSpace(t.Text)))
+            {
+                //  Show error message
+                MessageBox.Show("Not all entries for MODIFYING SCREENING ROOM are filled.");
+            }
+            //  Integer checking for ID
+            else if (!int.TryParse(screeningRoomCapacityTextBox.Text, out num))
+            {
+                //  Show error message
+                MessageBox.Show("Invalid capacity input. Use an integer instead.");
+            }
+            else
+            {
+                //  Declare screening room
+                ScreeningRoom modifyScreeningRoom = new ScreeningRoom();
 
-            //  Clear ListBox
-            screeningRoomsListBox.Items.Clear();
+                //  Associate variables with inputted data by the user 
+                modifyScreeningRoom.Code = screeningRoomCodeTextBox.Text;
+                modifyScreeningRoom.Capacity = int.Parse(screeningRoomCapacityTextBox.Text);
+                modifyScreeningRoom.Description = screeningRoomDescriptionTextBox.Text;
 
-            //  Read screening rooms from the database
-            ReadScreeningRoomsDB();
+                //  Clear screening room list
+                screeningRoomList.Clear();
 
-            //  Clear inputs method
-            ClearScreeningRoomInputs();
+                //  Call method to save screening room changes from the list according to the screening room fields read
+                dbManager.ModifyScreeningRoomDB(modifyScreeningRoom);
 
-            //  Disable TextBoxes and Buttons to deny access for anymore changes made by the user
-            screeningRoomCapacityTextBox.Enabled = false;
-            screeningRoomDescriptionTextBox.Enabled = false;
-            saveScreeningRoomButton.Enabled = false;
+                //  Clear ListBox
+                screeningRoomsListBox.Items.Clear();
+
+                //  Read screening rooms from the database
+                ReadScreeningRoomsDB();
+
+                //  Clear inputs method
+                ClearScreeningRoomInputs();
+
+                //  Disable TextBoxes and Buttons to deny access for anymore changes made by the user
+                screeningRoomCapacityTextBox.Enabled = false;
+                screeningRoomDescriptionTextBox.Enabled = false;
+                saveScreeningRoomButton.Enabled = false;
+            }
+        }
+
+        private int AddShowtimeDB(Showtime addShowtime)
+        {
+
+            //  Open DB connection
+            dbManager.dbConnection.Open();
+
+            //  Declare int variable for rows affected upon changes
+            int queryResult;
+
+            //  SQL query to execute in the db
+            string sqlQuery = "INSERT INTO showtime VALUES(@ID, @Time, @Movie, @Room, @Price);";
+
+            //  SQL containing the query to be executed
+            MySqlCommand dbCommand6 = new MySqlCommand(sqlQuery, dbManager.dbConnection);
+
+            //  Associate parameters with screening room objects
+            dbCommand6.Parameters.AddWithValue("@ID", addShowtime.ID);
+            dbCommand6.Parameters.AddWithValue("@Time", Convert.ToDateTime(addShowtime.Time).ToString("yyyy-MM-dd HH:mm:ss"));
+            dbCommand6.Parameters.AddWithValue("@Movie", movieList[addShowtimeMovieComboBox.SelectedIndex].ID);
+            dbCommand6.Parameters.AddWithValue("@Room", addShowtime.RoomCode);
+            dbCommand6.Parameters.AddWithValue("@Price", addShowtime.TicketPrice);
+
+            //  Prepare parameters to query in DB
+            dbCommand6.Prepare();
+
+            //  Result of rows affected
+            queryResult = dbCommand6.ExecuteNonQuery();
+
+            //  Close DB connection
+            dbManager.dbConnection.Close();
+
+            return queryResult;
+        }
+
+        private int ModifyShowtimeDB(Showtime modifyShowtime)
+        {
+
+            //  Open DB connection
+            dbManager.dbConnection.Open();
+
+            //  Declare int variable for rows affected upon changes
+            int queryResult;
+
+            //This is a string representing the SQL query to execute in the db           
+            string sqlQuery = "UPDATE showtime SET date_time = @Time, s_room_code = @Room, ticket_price = @Price WHERE id = @ID;";
+
+            //This is the actual SQL containing the query to be executed
+            MySqlCommand dbCommand7 = new MySqlCommand(sqlQuery, dbManager.dbConnection);
+
+            //  Associate parameters with screening room objects
+            dbCommand7.Parameters.AddWithValue("@Time", Convert.ToDateTime(modifyShowtime.Time).ToString("yyyy-MM-dd HH:mm:ss"));
+            dbCommand7.Parameters.AddWithValue("@Room", modifyShowtime.RoomCode);
+            dbCommand7.Parameters.AddWithValue("@Price", modifyShowtime.TicketPrice);
+            dbCommand7.Parameters.AddWithValue("@ID", modifyShowtime.ID);
+
+            //  Prepare parameters to query in DB
+            dbCommand7.Prepare();
+
+            //  Result of rows affected
+            queryResult = dbCommand7.ExecuteNonQuery();
+
+            //  Close DB connection
+            dbManager.dbConnection.Close();
+
+            return queryResult;
+        }
+
+        private void addShowtimeButton_Click(object sender, EventArgs e)
+        {
+            //  Declare float variable for number checking
+            float f;
+
+            //  Create array of TextBoxes
+            var textBoxCollection = new[] { addShowtimeMovieComboBox, addShowtimeRoomComboBox };
+
+            //  Declare boolean value to use for array
+            bool atleastOneTextboxEmpty;
+
+            //  Check if any TextBoxes are empty within the array
+            if (atleastOneTextboxEmpty = textBoxCollection.Any(t => String.IsNullOrWhiteSpace(t.Text)))
+            {
+                //  Show error message
+                MessageBox.Show("Not all ComboBox entries for ADD SHOWTIME are filled.");
+            }
+            //  Check if ComboBox is empty
+            else if (addShowtimeCostTextBox.Text == "")
+            {
+                //  Show error message
+                MessageBox.Show("Choose a price for the showtime.");
+            }
+            //  Number checking for price
+            else if (!float.TryParse(addShowtimeCostTextBox.Text, out f))
+            {
+                //  Show error message
+                MessageBox.Show("Invalid price input. Use a number instead.");
+            }
+            else
+            {
+                //  Declare random variable for ID
+                Random rand = new Random();
+                int idNum = rand.Next(100, 50000);
+
+                //  Declare showtime
+                Showtime addShowtime = new Showtime();
+
+                //  Associate variables with inputted data by the user
+                addShowtime.ID = int.Parse(idNum.ToString());
+                addShowtime.Time = DateTime.Parse(addShowtimeDateTimePicker.Text);
+                addShowtime.RoomCode = addShowtimeRoomComboBox.Text;
+                addShowtime.TicketPrice = float.Parse(addShowtimeCostTextBox.Text);
+
+                //  Clear showtime list
+                showtimeList.Clear();
+
+                //  Call method to insert add showtime room fields from form to a showtime object in the list
+                AddShowtimeDB(addShowtime);
+
+                //  Clear ListBox
+                showtimesListBox.Items.Clear();
+
+                //  Read showtimes from the database
+                ReadShowtimesDB();
+
+                //  Method to clear showtime input data
+                ClearAddShowtimeInputs();
+
+                //  Read movies from the database
+                ReadMoviesDB();
+
+                //  Read screening rooms from the database
+                ReadScreeningRoomsDB();
+
+                //  Clear ComboBoxes
+                addShowtimeMovieComboBox.Items.Clear();
+                addShowtimeRoomComboBox.Items.Clear();
+
+                //  Methods to refresh selections for ComboBoxes
+                ReadAddShowtimeMovieComboBox();
+                ReadAddShowtimeRoomComboBox();
+            }
+        }
+
+        private void ReadAddShowtimeMovieComboBox()
+        {
+            //  Loop to repopulate ComboBox after a clear data method is used
+            for (int i = 0; i < movieList.Count; i++)
+            {
+                addShowtimeMovieComboBox.Items.Add(movieList[i].Title);
+            }
+        }
+
+        private void ReadShowtimeMovieComboBox()
+        {
+            //  Loop to repopulate ComboBox after a clear data method is used
+            for (int i = 0; i < movieList.Count; i++)
+            {
+                showtimeMovieComboBox.Items.Add(movieList[i].Title);
+            }
+        }
+
+        private void ReadAddShowtimeRoomComboBox()
+        {
+            //  Loop to repopulate ComboBox after a clear data method is used
+            for (int i = 0; i < screeningRoomList.Count; i++)
+            {
+                addShowtimeRoomComboBox.Items.Add(screeningRoomList[i].Code);
+            }
+        }
+
+        private void ReadShowtimeRoomComboBox()
+        {
+            //  Loop to repopulate ComboBox after a clear data method is used
+            for (int i = 0; i < screeningRoomList.Count; i++)
+            {
+                showtimeRoomComboBox.Items.Add(screeningRoomList[i].Code);
+            }
+        }
+
+        private void ClearShowtimeInputs()
+        {
+            //  Clear inputs
+            showtimeIDTextBox.Text = "";
+            showtimeMovieComboBox.Text = "";
+            showtimeRoomComboBox.Text = "";
+            showtimeCostTextBox.Text = "";
+
+            //  Clear DateTimePicker
+            //  Source: https://stackoverflow.com/questions/40378035/clear-the-datetimepicker-control-in-c-sharp-winfoms
+            showtimeDateTimePicker.CustomFormat = " ";
+            showtimeDateTimePicker.Format = DateTimePickerFormat.Custom;
+        }
+
+        private void ClearAddShowtimeInputs()
+        {
+            //  Clear inputs
+            addShowtimeMovieComboBox.Text = "";
+            addShowtimeRoomComboBox.Text = "";
+            addShowtimeCostTextBox.Text = "";
+        }
+
+        private void modifyShowtimeButton_Click(object sender, EventArgs e)
+        {
+            //  Check if a ListBox selection for a showtime exists
+            if (showtimesListBox.SelectedIndex < 0)
+            {
+                //  Show error message
+                MessageBox.Show("Select a showtime from the ListBox.");
+            }
+            //  Otherwise continue actions
+            else
+            {
+                //  Format DateTimePicker
+                showtimeDateTimePicker.CustomFormat = "MM/dd/yyyy hh:mm:ss tt";
+                showtimeDateTimePicker.Format = DateTimePickerFormat.Custom;
+
+                //  Enable TextBoxes and Button to allow access for changes made by the user
+                showtimeDateTimePicker.Enabled = true;
+                showtimeMovieComboBox.Enabled = true;
+                showtimeRoomComboBox.Enabled = true;
+                showtimeCostTextBox.Enabled = true;
+                saveShowtimeButton.Enabled = true;
+            }
+        }
+
+        private void saveShowtimeButton_Click(object sender, EventArgs e)
+        {
+            //  Declare float variable for number checking
+            float f;
+
+            //  Create array of TextBoxes
+            var textBoxCollection = new[] { showtimeMovieComboBox, showtimeRoomComboBox };
+
+            //  Declare boolean value to use for array
+            bool atleastOneTextboxEmpty;
+
+            //  Check if any TextBoxes are empty within the array
+            if (atleastOneTextboxEmpty = textBoxCollection.Any(t => String.IsNullOrWhiteSpace(t.Text)))
+            {
+                //  Show error message
+                MessageBox.Show("Not all ComboBox entries for MODIFYING SHOWTIME are filled.");
+            }
+            //  Check if ComboBox is empty
+            else if (showtimeCostTextBox.Text == "")
+            {
+                //  Show error message
+                MessageBox.Show("Choose a price for the showtime.");
+            }
+            //  Number checking for price
+            else if (!float.TryParse(showtimeCostTextBox.Text, out f))
+            {
+                //  Show error message
+                MessageBox.Show("Invalid price input. Use a number instead.");
+            }
+            else
+            {
+                //  Declare showtime
+                Showtime modifyShowtime = new Showtime();
+
+                //  Associate variables with inputted data by the user
+                modifyShowtime.ID = int.Parse(showtimeIDTextBox.Text);
+                modifyShowtime.Time = DateTime.Parse(showtimeDateTimePicker.Text);
+                modifyShowtime.RoomCode = showtimeRoomComboBox.Text;
+                modifyShowtime.TicketPrice = float.Parse(showtimeCostTextBox.Text);
+
+                //  Clear showtime list
+                showtimeList.Clear();
+
+                //  Call method to save showtime changes from the list according to the showtime fields read
+                ModifyShowtimeDB(modifyShowtime);
+
+                //  Clear ListBox
+                showtimesListBox.Items.Clear();
+
+                //  Read showtimes from the database
+                ReadShowtimesDB();
+
+                //  Method to clear showtime input data
+                ClearShowtimeInputs();
+
+                //  Read movies from the database
+                ReadMoviesDB();
+
+                //  Read screening rooms from the database
+                ReadScreeningRoomsDB();
+
+                //  Clear ComboBoxes
+                showtimeMovieComboBox.Items.Clear();
+                showtimeRoomComboBox.Items.Clear();
+
+                //  Methods to refresh selections for ComboBoxes
+                ReadShowtimeMovieComboBox();
+                ReadShowtimeRoomComboBox();
+
+                //  Disable TextBoxes and Buttons to deny access for anymore changes made by the user
+                showtimeDateTimePicker.Enabled = false;
+                showtimeMovieComboBox.Enabled = false;
+                showtimeRoomComboBox.Enabled = false;
+                showtimeCostTextBox.Enabled = false;
+                saveShowtimeButton.Enabled = false;
+            }
         }
     }
 }

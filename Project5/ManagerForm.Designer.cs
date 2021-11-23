@@ -90,7 +90,6 @@
             this.showtimeMovieLabel = new System.Windows.Forms.Label();
             this.showtimeDateLabel = new System.Windows.Forms.Label();
             this.showtimeIDLabel = new System.Windows.Forms.Label();
-            this.showtimeDateTextBox = new System.Windows.Forms.TextBox();
             this.showtimeIDTextBox = new System.Windows.Forms.TextBox();
             this.showtimeInfoLabel = new System.Windows.Forms.Label();
             this.showtimesListBox = new System.Windows.Forms.ListBox();
@@ -104,7 +103,6 @@
             this.addShowtimeCostTextBox = new System.Windows.Forms.TextBox();
             this.addShowtimeMovieLabel = new System.Windows.Forms.Label();
             this.addShowtimeDateLabel = new System.Windows.Forms.Label();
-            this.addShowtimeDateTextBox = new System.Windows.Forms.TextBox();
             this.deleteShowtimeButton = new System.Windows.Forms.Button();
             this.addShowtimeButton = new System.Windows.Forms.Button();
             this.ticketPortalButton = new System.Windows.Forms.Button();
@@ -121,6 +119,8 @@
             this.addScreeningRoomCapacityTextBox = new System.Windows.Forms.TextBox();
             this.showtimeMovieComboBox = new System.Windows.Forms.ComboBox();
             this.addShowtimeMovieComboBox = new System.Windows.Forms.ComboBox();
+            this.addShowtimeDateTimePicker = new System.Windows.Forms.DateTimePicker();
+            this.showtimeDateTimePicker = new System.Windows.Forms.DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)(this.moviePictureBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -434,11 +434,11 @@
             // movieGenreLabel
             // 
             this.movieGenreLabel.AutoSize = true;
-            this.movieGenreLabel.Location = new System.Drawing.Point(42, 501);
+            this.movieGenreLabel.Location = new System.Drawing.Point(25, 501);
             this.movieGenreLabel.Name = "movieGenreLabel";
-            this.movieGenreLabel.Size = new System.Drawing.Size(52, 17);
+            this.movieGenreLabel.Size = new System.Drawing.Size(69, 17);
             this.movieGenreLabel.TabIndex = 180;
-            this.movieGenreLabel.Text = "Genre:";
+            this.movieGenreLabel.Text = "Genre(s):";
             // 
             // yearTextBox
             // 
@@ -692,7 +692,7 @@
             // showtimeDateLabel
             // 
             this.showtimeDateLabel.AutoSize = true;
-            this.showtimeDateLabel.Location = new System.Drawing.Point(788, 371);
+            this.showtimeDateLabel.Location = new System.Drawing.Point(745, 369);
             this.showtimeDateLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.showtimeDateLabel.Name = "showtimeDateLabel";
             this.showtimeDateLabel.Size = new System.Drawing.Size(42, 17);
@@ -708,15 +708,6 @@
             this.showtimeIDLabel.Size = new System.Drawing.Size(25, 17);
             this.showtimeIDLabel.TabIndex = 303;
             this.showtimeIDLabel.Text = "ID:";
-            // 
-            // showtimeDateTextBox
-            // 
-            this.showtimeDateTextBox.Enabled = false;
-            this.showtimeDateTextBox.Location = new System.Drawing.Point(832, 368);
-            this.showtimeDateTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.showtimeDateTextBox.Name = "showtimeDateTextBox";
-            this.showtimeDateTextBox.Size = new System.Drawing.Size(174, 22);
-            this.showtimeDateTextBox.TabIndex = 302;
             // 
             // showtimeIDTextBox
             // 
@@ -779,6 +770,7 @@
             this.saveShowtimeButton.TabIndex = 317;
             this.saveShowtimeButton.Text = "Save Modifications";
             this.saveShowtimeButton.UseVisualStyleBackColor = true;
+            this.saveShowtimeButton.Click += new System.EventHandler(this.saveShowtimeButton_Click);
             // 
             // modifyShowtimeButton
             // 
@@ -789,6 +781,7 @@
             this.modifyShowtimeButton.TabIndex = 316;
             this.modifyShowtimeButton.Text = "Modify showtime";
             this.modifyShowtimeButton.UseVisualStyleBackColor = true;
+            this.modifyShowtimeButton.Click += new System.EventHandler(this.modifyShowtimeButton_Click);
             // 
             // label1
             // 
@@ -848,14 +841,6 @@
             this.addShowtimeDateLabel.TabIndex = 321;
             this.addShowtimeDateLabel.Text = "Date:";
             // 
-            // addShowtimeDateTextBox
-            // 
-            this.addShowtimeDateTextBox.Location = new System.Drawing.Point(1175, 338);
-            this.addShowtimeDateTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.addShowtimeDateTextBox.Name = "addShowtimeDateTextBox";
-            this.addShowtimeDateTextBox.Size = new System.Drawing.Size(174, 22);
-            this.addShowtimeDateTextBox.TabIndex = 319;
-            // 
             // deleteShowtimeButton
             // 
             this.deleteShowtimeButton.Location = new System.Drawing.Point(1003, 487);
@@ -875,6 +860,7 @@
             this.addShowtimeButton.TabIndex = 329;
             this.addShowtimeButton.Text = "Add Showtime";
             this.addShowtimeButton.UseVisualStyleBackColor = true;
+            this.addShowtimeButton.Click += new System.EventHandler(this.addShowtimeButton_Click);
             // 
             // ticketPortalButton
             // 
@@ -1010,11 +996,28 @@
             this.addShowtimeMovieComboBox.Size = new System.Drawing.Size(174, 24);
             this.addShowtimeMovieComboBox.TabIndex = 345;
             // 
+            // addShowtimeDateTimePicker
+            // 
+            this.addShowtimeDateTimePicker.Location = new System.Drawing.Point(1175, 341);
+            this.addShowtimeDateTimePicker.Name = "addShowtimeDateTimePicker";
+            this.addShowtimeDateTimePicker.Size = new System.Drawing.Size(220, 22);
+            this.addShowtimeDateTimePicker.TabIndex = 346;
+            // 
+            // showtimeDateTimePicker
+            // 
+            this.showtimeDateTimePicker.Enabled = false;
+            this.showtimeDateTimePicker.Location = new System.Drawing.Point(786, 366);
+            this.showtimeDateTimePicker.Name = "showtimeDateTimePicker";
+            this.showtimeDateTimePicker.Size = new System.Drawing.Size(220, 22);
+            this.showtimeDateTimePicker.TabIndex = 347;
+            // 
             // ManagerForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1373, 731);
+            this.ClientSize = new System.Drawing.Size(1403, 731);
+            this.Controls.Add(this.showtimeDateTimePicker);
+            this.Controls.Add(this.addShowtimeDateTimePicker);
             this.Controls.Add(this.addShowtimeMovieComboBox);
             this.Controls.Add(this.showtimeMovieComboBox);
             this.Controls.Add(this.addScreeningRoomDescriptionLabel);
@@ -1036,7 +1039,6 @@
             this.Controls.Add(this.addShowtimeCostTextBox);
             this.Controls.Add(this.addShowtimeMovieLabel);
             this.Controls.Add(this.addShowtimeDateLabel);
-            this.Controls.Add(this.addShowtimeDateTextBox);
             this.Controls.Add(this.saveShowtimeButton);
             this.Controls.Add(this.modifyShowtimeButton);
             this.Controls.Add(this.screeningRoomLabel);
@@ -1049,7 +1051,6 @@
             this.Controls.Add(this.showtimeMovieLabel);
             this.Controls.Add(this.showtimeDateLabel);
             this.Controls.Add(this.showtimeIDLabel);
-            this.Controls.Add(this.showtimeDateTextBox);
             this.Controls.Add(this.showtimeIDTextBox);
             this.Controls.Add(this.saveScreeningRoomButton);
             this.Controls.Add(this.modifyScreeningRoomButton);
@@ -1178,7 +1179,6 @@
         private System.Windows.Forms.Label showtimeMovieLabel;
         private System.Windows.Forms.Label showtimeDateLabel;
         private System.Windows.Forms.Label showtimeIDLabel;
-        private System.Windows.Forms.TextBox showtimeDateTextBox;
         private System.Windows.Forms.TextBox showtimeIDTextBox;
         private System.Windows.Forms.Label showtimeInfoLabel;
         private System.Windows.Forms.ListBox showtimesListBox;
@@ -1192,7 +1192,6 @@
         private System.Windows.Forms.TextBox addShowtimeCostTextBox;
         private System.Windows.Forms.Label addShowtimeMovieLabel;
         private System.Windows.Forms.Label addShowtimeDateLabel;
-        private System.Windows.Forms.TextBox addShowtimeDateTextBox;
         private System.Windows.Forms.Button deleteShowtimeButton;
         private System.Windows.Forms.Button addShowtimeButton;
         private System.Windows.Forms.Button ticketPortalButton;
@@ -1209,5 +1208,7 @@
         private System.Windows.Forms.ListBox genreListBox;
         private System.Windows.Forms.ComboBox showtimeMovieComboBox;
         private System.Windows.Forms.ComboBox addShowtimeMovieComboBox;
+        private System.Windows.Forms.DateTimePicker addShowtimeDateTimePicker;
+        private System.Windows.Forms.DateTimePicker showtimeDateTimePicker;
     }
 }
