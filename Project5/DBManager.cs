@@ -227,59 +227,10 @@ namespace Project5
             }
         }
 
-        public int DeleteScreeningRoomDB(ScreeningRoom deleteScreeningRoom)
+        public int ModifyScreeningRoomDB(ScreeningRoom modifyScreeningRoom)
         {
             try
             {
-                //  Open DB connection
-                dbConnection.Open();
-
-                //  Declare int variable for rows affected upon changes
-                int queryResult;
-
-
-                //// -- In order to delete a screening room with a showtime already planned for that room you must first -- ////
-                //// -- cancel the movie showing by deleting the showtime first then delete the screening room after-- ////
-
-
-                //  SQL query to execute in the db
-                string sqlQuery = "DELETE FROM screening_room WHERE code = @Code;";
-
-                //  SQL containing the query to be executed
-                MySqlCommand dbCommand4 = new MySqlCommand(sqlQuery, dbConnection);
-
-                //  Associate parameters with screening room objects
-                dbCommand4.Parameters.AddWithValue("@Code", deleteScreeningRoom.Code);
-
-                //  Prepare parameters to query in DB
-                dbCommand4.Prepare();
-
-                //  Result of rows affected
-                queryResult = dbCommand4.ExecuteNonQuery();
-
-                //  Close DB connection
-                dbConnection.Close();
-
-                return queryResult;
-            }
-            catch
-            {
-                //  Error message
-                Console.WriteLine("Error deleting screening room.");
-                Console.WriteLine("If you are attempting to delete a screening room with a movie showtime planned,");
-                Console.WriteLine("you must delete the showtime first and which *cancels* the event.");
-
-                //  Open and close connection upon an error
-                MySqlConnection dbConnection3 = CreateDBConnection();
-
-                dbConnection3.Close();
-
-                return 0;
-            }
-        }
-        public int ModifyScreeningRoomDB(ScreeningRoom modifyScreeningRoom)
-        {
-
                 //  Open DB connection
                 dbConnection.Open();
 
@@ -307,7 +258,82 @@ namespace Project5
                 dbConnection.Close();
 
                 return queryResult;
+            }
+            catch
+            {
+                //  Error message
+                Console.WriteLine("Error updating screening room.");
 
+                //  Open and close connection upon an error
+                MySqlConnection dbConnection5 = CreateDBConnection();
+
+                dbConnection5.Close();
+
+                return 0;
+            }
+        }
+        
+        public int DeleteShowtimeDB(Showtime deleteShowtime)
+        {
+            try
+            {
+                //  Open DB connection
+                dbConnection.Open();
+
+                //  Declare int variables for rows affected upon changes
+                int queryResult;
+                int queryResult2;
+
+                //  ----Delete e_tickets associated with showtime if any exist first to prevent foreign key error----
+
+                //  SQL query to execute in the db
+                string sqlQuery = "DELETE FROM e_ticket WHERE showtime_id = @ID;";
+
+                //  SQL containing the query to be executed
+                MySqlCommand dbCommand6 = new MySqlCommand(sqlQuery, dbConnection);
+
+                //  Associate parameter with showtime object
+                dbCommand6.Parameters.AddWithValue("@ID", deleteShowtime.ID);
+
+                //  Prepare parameters to query in DB
+                dbCommand6.Prepare();
+
+                //  Result of rows affected
+                queryResult = dbCommand6.ExecuteNonQuery();
+
+
+                //  SQL query to execute in the db
+                string sqlQuery2 = "DELETE FROM showtime WHERE id = @ID;";
+
+                //  SQL containing the query to be executed
+                MySqlCommand dbCommand7 = new MySqlCommand(sqlQuery2, dbConnection);
+
+                //  Associate parameter with showtime object
+                dbCommand7.Parameters.AddWithValue("@ID", deleteShowtime.ID);
+
+                //  Prepare parameters to query in DB
+                dbCommand7.Prepare();
+
+                //  Result of rows affected
+                queryResult2 = dbCommand7.ExecuteNonQuery();
+
+                //  Close DB connection
+                dbConnection.Close();
+
+                return queryResult;
+            }
+            catch
+            {
+                //  Error message
+                Console.WriteLine("Error deleting showtime.");
+
+                //  Open and close connection upon an error
+                MySqlConnection dbConnection6 = CreateDBConnection();
+
+                dbConnection6.Close();
+
+                return 0;
+            }
         }
     }
 }

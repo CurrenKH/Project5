@@ -469,10 +469,10 @@
             // 
             // deleteMovieButton
             // 
-            this.deleteMovieButton.Location = new System.Drawing.Point(454, 649);
+            this.deleteMovieButton.Location = new System.Drawing.Point(484, 649);
             this.deleteMovieButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.deleteMovieButton.Name = "deleteMovieButton";
-            this.deleteMovieButton.Size = new System.Drawing.Size(110, 44);
+            this.deleteMovieButton.Size = new System.Drawing.Size(118, 44);
             this.deleteMovieButton.TabIndex = 175;
             this.deleteMovieButton.Text = "Delete movie";
             this.deleteMovieButton.UseVisualStyleBackColor = true;
@@ -489,7 +489,7 @@
             // 
             // addMovieButton
             // 
-            this.addMovieButton.Location = new System.Drawing.Point(330, 649);
+            this.addMovieButton.Location = new System.Drawing.Point(356, 649);
             this.addMovieButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addMovieButton.Name = "addMovieButton";
             this.addMovieButton.Size = new System.Drawing.Size(118, 44);
@@ -850,6 +850,7 @@
             this.deleteShowtimeButton.TabIndex = 330;
             this.deleteShowtimeButton.Text = "Delete Showtime";
             this.deleteShowtimeButton.UseVisualStyleBackColor = true;
+            this.deleteShowtimeButton.Click += new System.EventHandler(this.deleteShowtimeButton_Click);
             // 
             // addShowtimeButton
             // 

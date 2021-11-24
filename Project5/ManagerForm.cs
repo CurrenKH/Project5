@@ -941,33 +941,44 @@ namespace Project5
 
         private void DeleteScreeningRoomButton_Click(object sender, EventArgs e)
         {
-            ScreeningRoom deleteScreeningRoom = new ScreeningRoom();
+            //  Check if a ListBox selection for a screening room exists
+            if (screeningRoomsListBox.SelectedIndex < 0)
+            {
+                //  Show error message
+                MessageBox.Show("Select a screening room from the ListBox.");
+            }
+            //  Otherwise continue actions
+            else
+            {
+                //  Declare screening room
+                ScreeningRoom deleteScreeningRoom = new ScreeningRoom();
 
-            deleteScreeningRoom.Code = screeningRoomCodeTextBox.Text;
-            deleteScreeningRoom.Capacity = int.Parse(screeningRoomCapacityTextBox.Text);
-            deleteScreeningRoom.Description = screeningRoomDescriptionTextBox.Text;
+                deleteScreeningRoom.Code = screeningRoomCodeTextBox.Text;
+                deleteScreeningRoom.Capacity = int.Parse(screeningRoomCapacityTextBox.Text);
+                deleteScreeningRoom.Description = screeningRoomDescriptionTextBox.Text;
 
-            //  Clear screening room list
-            screeningRoomList.Clear();
+                //  Clear screening room list
+                screeningRoomList.Clear();
 
-            //  Call method to delete screening room from the list according to the screening room fields read
-            dbManager.DeleteScreeningRoomDB(deleteScreeningRoom);
+                //  Call method to delete screening room from the list according to the screening room fields read
+                DeleteScreeningRoomDB(deleteScreeningRoom);
 
-            //  Clear ListBox
-            screeningRoomsListBox.Items.Clear();
+                //  Clear ListBox
+                screeningRoomsListBox.Items.Clear();
 
-            //  Read screening rooms from the database
-            ReadScreeningRoomsDB();
+                //  Read screening rooms from the database
+                ReadScreeningRoomsDB();
 
-            //  Clear inputs method
-            ClearScreeningRoomInputs();
+                //  Clear inputs method
+                ClearScreeningRoomInputs();
 
-            //  Clear ComboBoxes
-            addShowtimeRoomComboBox.Items.Clear();
-            showtimeRoomComboBox.Items.Clear();
+                //  Clear ComboBoxes
+                addShowtimeRoomComboBox.Items.Clear();
+                showtimeRoomComboBox.Items.Clear();
 
-            //  Update ComboBox for showtime (add screening room)
-            RefreshScreeningRooms();
+                //  Update ComboBox for showtime (add screening room)
+                RefreshScreeningRooms();
+            }
         }
 
         private void ModifyScreeningRoomButton_Click(object sender, EventArgs e)
@@ -1042,72 +1053,150 @@ namespace Project5
                 saveScreeningRoomButton.Enabled = false;
             }
         }
+        private int DeleteScreeningRoomDB(ScreeningRoom deleteScreeningRoom)
+        {
+            try
+            {
+                //  Open DB connection
+                dbManager.dbConnection.Open();
+
+                //  Declare int variable for rows affected upon changes
+                int queryResult;
+
+
+                //// -- In order to delete a screening room with a showtime already planned for that room you must first -- ////
+                //// -- cancel the movie showing by deleting the showtime first then delete the screening room after-- ////
+
+
+                //  SQL query to execute in the db
+                string sqlQuery = "DELETE FROM screening_room WHERE code = @Code;";
+
+                //  SQL containing the query to be executed
+                MySqlCommand dbCommand4 = new MySqlCommand(sqlQuery, dbManager.dbConnection);
+
+                //  Associate parameters with screening room objects
+                dbCommand4.Parameters.AddWithValue("@Code", deleteScreeningRoom.Code);
+
+                //  Prepare parameters to query in DB
+                dbCommand4.Prepare();
+
+                //  Result of rows affected
+                queryResult = dbCommand4.ExecuteNonQuery();
+
+                //  Close DB connection
+                dbManager.dbConnection.Close();
+
+                return queryResult;
+            }
+            catch
+            {
+                //  Error message
+                MessageBox.Show("Error deleting screening room." +
+                    " If you are attempting to delete a screening room with a movie showtime planned," +
+                    "you must delete the showtime first and which * cancels * the event.");
+
+                //  Open and close connection upon an error
+                MySqlConnection dbConnection3 = dbManager.CreateDBConnection();
+
+                dbConnection3.Close();
+
+                return 0;
+            }
+        }
 
         private int AddShowtimeDB(Showtime addShowtime)
         {
+            try
+            {
+                //  Open DB connection
+                dbManager.dbConnection.Open();
 
-            //  Open DB connection
-            dbManager.dbConnection.Open();
+                //  Declare int variable for rows affected upon changes
+                int queryResult;
 
-            //  Declare int variable for rows affected upon changes
-            int queryResult;
+                //  SQL query to execute in the db
+                string sqlQuery = "INSERT INTO showtime VALUES(@ID, @Time, @Movie, @Room, @Price);";
 
-            //  SQL query to execute in the db
-            string sqlQuery = "INSERT INTO showtime VALUES(@ID, @Time, @Movie, @Room, @Price);";
+                //  SQL containing the query to be executed
+                MySqlCommand dbCommand6 = new MySqlCommand(sqlQuery, dbManager.dbConnection);
 
-            //  SQL containing the query to be executed
-            MySqlCommand dbCommand6 = new MySqlCommand(sqlQuery, dbManager.dbConnection);
+                //  Associate parameters with screening room objects
+                dbCommand6.Parameters.AddWithValue("@ID", addShowtime.ID);
+                dbCommand6.Parameters.AddWithValue("@Time", Convert.ToDateTime(addShowtime.Time).ToString("yyyy-MM-dd HH:mm:ss"));
+                dbCommand6.Parameters.AddWithValue("@Movie", movieList[addShowtimeMovieComboBox.SelectedIndex].ID);
+                dbCommand6.Parameters.AddWithValue("@Room", addShowtime.RoomCode);
+                dbCommand6.Parameters.AddWithValue("@Price", addShowtime.TicketPrice);
 
-            //  Associate parameters with screening room objects
-            dbCommand6.Parameters.AddWithValue("@ID", addShowtime.ID);
-            dbCommand6.Parameters.AddWithValue("@Time", Convert.ToDateTime(addShowtime.Time).ToString("yyyy-MM-dd HH:mm:ss"));
-            dbCommand6.Parameters.AddWithValue("@Movie", movieList[addShowtimeMovieComboBox.SelectedIndex].ID);
-            dbCommand6.Parameters.AddWithValue("@Room", addShowtime.RoomCode);
-            dbCommand6.Parameters.AddWithValue("@Price", addShowtime.TicketPrice);
+                //  Prepare parameters to query in DB
+                dbCommand6.Prepare();
 
-            //  Prepare parameters to query in DB
-            dbCommand6.Prepare();
+                //  Result of rows affected
+                queryResult = dbCommand6.ExecuteNonQuery();
 
-            //  Result of rows affected
-            queryResult = dbCommand6.ExecuteNonQuery();
+                //  Close DB connection
+                dbManager.dbConnection.Close();
 
-            //  Close DB connection
-            dbManager.dbConnection.Close();
+                return queryResult;
+            }
+            catch
+            {
+                //  Error message
+                MessageBox.Show("Error adding showtime.");
 
-            return queryResult;
+                //  Open and close connection upon an error
+                MySqlConnection dbConnection6 = dbManager.CreateDBConnection();
+
+                dbConnection6.Close();
+
+                return 0;
+            }
         }
 
         private int ModifyShowtimeDB(Showtime modifyShowtime)
         {
+            try
+            {
+                //  Open DB connection
+                dbManager.dbConnection.Open();
 
-            //  Open DB connection
-            dbManager.dbConnection.Open();
+                //  Declare int variable for rows affected upon changes
+                int queryResult;
 
-            //  Declare int variable for rows affected upon changes
-            int queryResult;
+                //This is a string representing the SQL query to execute in the db           
+                string sqlQuery = "UPDATE showtime SET date_time = @Time, s_room_code = @Room, ticket_price = @Price WHERE id = @ID;";
 
-            //This is a string representing the SQL query to execute in the db           
-            string sqlQuery = "UPDATE showtime SET date_time = @Time, s_room_code = @Room, ticket_price = @Price WHERE id = @ID;";
+                //This is the actual SQL containing the query to be executed
+                MySqlCommand dbCommand7 = new MySqlCommand(sqlQuery, dbManager.dbConnection);
 
-            //This is the actual SQL containing the query to be executed
-            MySqlCommand dbCommand7 = new MySqlCommand(sqlQuery, dbManager.dbConnection);
+                //  Associate parameters with screening room objects
+                dbCommand7.Parameters.AddWithValue("@Time", Convert.ToDateTime(modifyShowtime.Time).ToString("yyyy-MM-dd HH:mm:ss"));
+                dbCommand7.Parameters.AddWithValue("@Room", modifyShowtime.RoomCode);
+                dbCommand7.Parameters.AddWithValue("@Price", modifyShowtime.TicketPrice);
+                dbCommand7.Parameters.AddWithValue("@ID", modifyShowtime.ID);
 
-            //  Associate parameters with screening room objects
-            dbCommand7.Parameters.AddWithValue("@Time", Convert.ToDateTime(modifyShowtime.Time).ToString("yyyy-MM-dd HH:mm:ss"));
-            dbCommand7.Parameters.AddWithValue("@Room", modifyShowtime.RoomCode);
-            dbCommand7.Parameters.AddWithValue("@Price", modifyShowtime.TicketPrice);
-            dbCommand7.Parameters.AddWithValue("@ID", modifyShowtime.ID);
+                //  Prepare parameters to query in DB
+                dbCommand7.Prepare();
 
-            //  Prepare parameters to query in DB
-            dbCommand7.Prepare();
+                //  Result of rows affected
+                queryResult = dbCommand7.ExecuteNonQuery();
 
-            //  Result of rows affected
-            queryResult = dbCommand7.ExecuteNonQuery();
+                //  Close DB connection
+                dbManager.dbConnection.Close();
 
-            //  Close DB connection
-            dbManager.dbConnection.Close();
+                return queryResult;
+            }
+            catch
+            {
+                //  Error message
+                MessageBox.Show("Error modifying showtime.");
 
-            return queryResult;
+                //  Open and close connection upon an error
+                MySqlConnection dbConnection7 = dbManager.CreateDBConnection();
+
+                dbConnection7.Close();
+
+                return 0;
+            }
         }
 
         private void addShowtimeButton_Click(object sender, EventArgs e)
@@ -1342,6 +1431,51 @@ namespace Project5
                 showtimeRoomComboBox.Enabled = false;
                 showtimeCostTextBox.Enabled = false;
                 saveShowtimeButton.Enabled = false;
+            }
+        }
+
+        private void deleteShowtimeButton_Click(object sender, EventArgs e)
+        {
+            //  Check if a ListBox selection for a showtime exists
+            if (showtimesListBox.SelectedIndex < 0)
+            {
+                //  Show error message
+                MessageBox.Show("Select a showtime from the ListBox.");
+            }
+            //  Otherwise continue actions
+            else
+            {
+                //  Declare showtime
+                Showtime deleteShowtime = new Showtime();
+
+                //  Associate variables with inputted data by the user
+                deleteShowtime.ID = int.Parse(showtimeIDTextBox.Text);
+                deleteShowtime.Time = DateTime.Parse(showtimeDateTimePicker.Text);
+                deleteShowtime.RoomCode = showtimeRoomComboBox.Text;
+                deleteShowtime.TicketPrice = float.Parse(showtimeCostTextBox.Text);
+
+                //  Clear list
+                showtimeList.Clear();
+
+                //  Call method to delete screening room from the list according to the screening room fields read
+                dbManager.DeleteShowtimeDB(deleteShowtime);
+
+                //  Clear ListBox
+                showtimesListBox.Items.Clear();
+
+                //  Read showtimes from the database
+                ReadShowtimesDB();
+
+                //  Method to clear showtime input data
+                ClearShowtimeInputs();
+
+                //  Clear ComboBoxes
+                showtimeMovieComboBox.Items.Clear();
+                showtimeRoomComboBox.Items.Clear();
+
+                //  Methods to refresh selections for ComboBoxes
+                ReadShowtimeMovieComboBox();
+                ReadShowtimeRoomComboBox();
             }
         }
     }
