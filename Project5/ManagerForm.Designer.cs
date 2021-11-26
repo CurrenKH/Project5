@@ -208,6 +208,7 @@
             this.addMovieImagePathButton.Text = "...";
             this.addMovieImagePathButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.addMovieImagePathButton.UseVisualStyleBackColor = true;
+            this.addMovieImagePathButton.Click += new System.EventHandler(this.addMovieImagePathButton_Click);
             // 
             // addMovieLabel
             // 
@@ -229,6 +230,7 @@
             // 
             // addMovieImagePathTextBox
             // 
+            this.addMovieImagePathTextBox.Enabled = false;
             this.addMovieImagePathTextBox.Location = new System.Drawing.Point(401, 575);
             this.addMovieImagePathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addMovieImagePathTextBox.Name = "addMovieImagePathTextBox";
@@ -496,6 +498,7 @@
             this.addMovieButton.TabIndex = 171;
             this.addMovieButton.Text = "Add movie";
             this.addMovieButton.UseVisualStyleBackColor = true;
+            this.addMovieButton.Click += new System.EventHandler(this.addMovieButton_Click);
             // 
             // exitButton
             // 

@@ -1264,10 +1264,6 @@ namespace Project5
                 //  Read screening rooms from the database
                 ReadScreeningRoomsDB();
 
-                //  Clear ComboBoxes
-                addShowtimeMovieComboBox.Items.Clear();
-                addShowtimeRoomComboBox.Items.Clear();
-
                 //  Methods to refresh selections for ComboBoxes
                 ReadAddShowtimeMovieComboBox();
                 ReadAddShowtimeRoomComboBox();
@@ -1276,6 +1272,9 @@ namespace Project5
 
         private void ReadAddShowtimeMovieComboBox()
         {
+            //  Clear ComboBox
+            addShowtimeMovieComboBox.Items.Clear();
+
             //  Loop to repopulate ComboBox after a clear data method is used
             for (int i = 0; i < movieList.Count; i++)
             {
@@ -1285,6 +1284,9 @@ namespace Project5
 
         private void ReadShowtimeMovieComboBox()
         {
+            //  Clear ComboBox
+            showtimeMovieComboBox.Items.Clear();
+
             //  Loop to repopulate ComboBox after a clear data method is used
             for (int i = 0; i < movieList.Count; i++)
             {
@@ -1294,6 +1296,9 @@ namespace Project5
 
         private void ReadAddShowtimeRoomComboBox()
         {
+            //  Clear ComboBox
+            addShowtimeRoomComboBox.Items.Clear();
+
             //  Loop to repopulate ComboBox after a clear data method is used
             for (int i = 0; i < screeningRoomList.Count; i++)
             {
@@ -1303,6 +1308,9 @@ namespace Project5
 
         private void ReadShowtimeRoomComboBox()
         {
+            //  Clear ComboBox
+            showtimeRoomComboBox.Items.Clear();
+
             //  Loop to repopulate ComboBox after a clear data method is used
             for (int i = 0; i < screeningRoomList.Count; i++)
             {
@@ -1417,10 +1425,6 @@ namespace Project5
                 //  Read screening rooms from the database
                 ReadScreeningRoomsDB();
 
-                //  Clear ComboBoxes
-                showtimeMovieComboBox.Items.Clear();
-                showtimeRoomComboBox.Items.Clear();
-
                 //  Methods to refresh selections for ComboBoxes
                 ReadShowtimeMovieComboBox();
                 ReadShowtimeRoomComboBox();
@@ -1469,13 +1473,224 @@ namespace Project5
                 //  Method to clear showtime input data
                 ClearShowtimeInputs();
 
-                //  Clear ComboBoxes
-                showtimeMovieComboBox.Items.Clear();
-                showtimeRoomComboBox.Items.Clear();
-
                 //  Methods to refresh selections for ComboBoxes
                 ReadShowtimeMovieComboBox();
                 ReadShowtimeRoomComboBox();
+            }
+        }
+
+        private void ClearAddMovieInputs()
+        {
+            //  Clear TextBoxes
+            addMovieIDTextBox.Text = "";
+            addMovieTitleTextBox.Text = "";
+            addMovieGenreComboBox.Text = "";
+            addMovieYearTextBox.Text = "";
+            addMovieLengthTextBox.Text = "";
+            addMovieRatingTextBox.Text = "";
+            addMovieImagePathTextBox.Text = "";
+
+            //  Clear ComboBox
+            addMovieGenreComboBox.Items.Clear();
+        }
+
+        private void RefreshAddMovieGenres()
+        {
+            //  Loop to repopulate addMovieGenreComboBox after a clear data method is used
+            for (int i = 0; i < genreList.Count; i++)
+            {
+                addMovieGenreComboBox.Items.Add(genreList[i].Name);
+            }
+        }
+
+        private void UpdateListView()
+        {
+            //  Clear ListView
+            moviesListView.Items.Clear();
+
+            //  For each item name add it to the ListView
+            for (int i = 0; i < movieList.Count; i++)
+            {
+                //  Create ListViewItem to hold the title and year for each movie
+                ListViewItem lvi = new ListViewItem();
+                lvi.Text = movieList[i].Title;
+                lvi.SubItems.Add(movieList[i].Year.ToString());
+
+                //  Populate ListView with created LVI item
+                moviesListView.Items.Add(lvi);
+            }
+        }
+
+        private int InsertMovieDB(Movie addMovie)
+        {
+            //  The following objects will be used to create a movie item in the movie table
+            MySqlConnection dbConnection8 = dbManager.CreateDBConnection();
+            MySqlCommand dbCommand8;
+
+            MySqlConnection dbConnection9 = dbManager.CreateDBConnection();
+            MySqlCommand dbCommand9;
+
+            //  Declare int variables for rows affected upon changes
+            int queryResult1;
+            int queryResult2;
+
+            //  Open DB connection
+            dbConnection8.Open();
+
+
+            //  SQL query to execute in the db
+            string sqlQuery1 = "INSERT INTO movie VALUES(@ID, @Title, @Year, @Length, @Rating, @ImagePath);";
+
+            //  SQL containing the query to be executed
+            dbCommand8 = new MySqlCommand(sqlQuery1, dbConnection8);
+
+            //  Associate parameters with screening room objects
+            dbCommand8.Parameters.AddWithValue("@ID", addMovie.ID);
+            dbCommand8.Parameters.AddWithValue("@Title", addMovie.Title);
+            dbCommand8.Parameters.AddWithValue("@Year", addMovie.Year);
+            dbCommand8.Parameters.AddWithValue("@Length", addMovie.Length);
+            dbCommand8.Parameters.AddWithValue("@Rating", addMovie.Rating);
+            dbCommand8.Parameters.AddWithValue("@ImagePath", addMovie.ImagePath);
+
+            //  Prepare parameters to query in DB
+            dbCommand8.Prepare();
+
+            //  Result of rows affected
+            queryResult1 = dbCommand8.ExecuteNonQuery();
+
+
+            //  Open DB connection
+            dbConnection9.Open();
+
+            //  SQL query to execute in the db
+            string sqlQuery2 = "INSERT INTO jt_genre_movie VALUES(@GenreCode, @ID);";
+
+            //  SQL containing the query to be executed
+            dbCommand9 = new MySqlCommand(sqlQuery2, dbConnection9);
+
+            //  Associate parameters with screening room objects
+            dbCommand9.Parameters.AddWithValue("@GenreCode", genreList[addMovieGenreComboBox.SelectedIndex].Code);
+            dbCommand9.Parameters.AddWithValue("@ID", addMovie.ID);
+
+            //  Prepare parameters to query in DB
+            dbCommand9.Prepare();
+
+            //  Result of rows affected
+            queryResult2 = dbCommand9.ExecuteNonQuery();
+
+            //  Close DB connections
+            dbConnection8.Close();
+            dbConnection9.Close();
+
+            return queryResult1;
+        }
+
+        private void addMovieButton_Click(object sender, EventArgs e)
+        {
+            //  Declare int and decimal variable for integer/decimal checking
+            int num = -1;
+            decimal d;
+
+            //  Create array of TextBoxes
+            var textBoxCollection = new[] { addMovieTitleTextBox, addMovieYearTextBox, addMovieLengthTextBox, addMovieImagePathTextBox, addMovieRatingTextBox };
+
+            //  Declare boolean value to use for array
+            bool atleastOneTextboxEmpty;
+
+            //  Check if any TextBoxes are empty within the array
+            if (atleastOneTextboxEmpty = textBoxCollection.Any(t => String.IsNullOrWhiteSpace(t.Text)))
+            {
+                //  Show error message
+                MessageBox.Show("Not all entries for ADD MOVIE are filled.");
+            }
+            //  Check if ComboBox is empty
+            else if (addMovieGenreComboBox.Text == "")
+            {
+                //  Show error message
+                MessageBox.Show("Select a genre from the ComboBox.");
+            }
+            //  Integer checking for year
+            else if (!int.TryParse(addMovieYearTextBox.Text, out num))
+            {
+                //  Show error message
+                MessageBox.Show("Invalid year input. Use an integer instead.");
+            }
+            //  Integer checking for length
+            else if (!int.TryParse(addMovieLengthTextBox.Text, out num))
+            {
+                //  Show error message
+                MessageBox.Show("Invalid length input. Use an integer instead.");
+            }
+            //  Number checking for rating
+            else if (!decimal.TryParse(addMovieRatingTextBox.Text, out d))
+            {
+                //  Show error message
+                MessageBox.Show("Invalid rating input. Use a number instead.");
+            }
+            else
+            {
+                //  Replace inputted backslashes inserted by OpenFileDialog to forward slashes
+                //  Due to MySQL deleting backslashes in its syntax when read
+                //  Source: https://stackoverflow.com/questions/41935210/replace-all-blackslashes-with-forward-slash/41935242
+                addMovieImagePathTextBox.Text = addMovieImagePathTextBox.Text.Replace("\\", "/");
+
+                //  Declare random variable for ID
+                Random rand = new Random();
+                int idNum = rand.Next(112, 50000);
+
+                //  Declare movie variable
+                Movie addMovie = new Movie();
+
+                //  New movie data values pointed to the add movie fields
+                addMovie.ID = int.Parse(idNum.ToString());
+                addMovie.Title = addMovieTitleTextBox.Text;
+                addMovie.Year = int.Parse(addMovieYearTextBox.Text);
+                addMovie.Length = int.Parse(addMovieLengthTextBox.Text);
+                addMovie.Rating = double.Parse(addMovieRatingTextBox.Text);
+                addMovie.ImagePath = addMovieImagePathTextBox.Text;
+
+                //  Empty Movies list
+                movieList = new List<Movie>();
+
+                //  Call method to insert add movie fields from form to a movie object in the list
+                InsertMovieDB(addMovie);
+
+                //  Clear imageList for adding movie item
+                movieImageList.Images.Clear();
+
+                //  Read movies from the database
+                ReadMoviesDB();
+
+                //  Read movie list and display updated data
+                UpdateListView();
+
+                //  Method to clear add movie TextBox/ComboBox data
+                ClearAddMovieInputs();
+
+                //  Method to repopulate addMovieGenreComboBox after a clear data method is used
+                RefreshAddMovieGenres();
+
+                //  Update ComboBoxes with movie list changes
+                ReadShowtimeMovieComboBox();
+                ReadAddShowtimeMovieComboBox();
+            }
+        }
+
+        private void addMovieImagePathButton_Click(object sender, EventArgs e)
+        {
+            //  Use FileDialog to search for an image to select
+            OpenFileDialog addMovieImage = new OpenFileDialog();
+
+            //  Set filter to only show images to select from
+            addMovieImage.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.tif;...";
+
+            if (addMovieImage.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                //  String variable for the file path and name taken from OpenFileDialog
+                string selectedImagePath = addMovieImage.FileName;
+
+                //  Set image path TextBox by the selected file
+                addMovieImagePathTextBox.Text = selectedImagePath;
             }
         }
     }
