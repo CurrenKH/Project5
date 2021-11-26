@@ -32,9 +32,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.processCompleteLabel = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.dateTextBox = new System.Windows.Forms.TextBox();
+            this.movieTextBox = new System.Windows.Forms.TextBox();
+            this.screeningRoomTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.exitButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -42,7 +42,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(60, 141);
+            this.label3.Location = new System.Drawing.Point(39, 139);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(117, 17);
@@ -52,7 +52,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(128, 106);
+            this.label2.Location = new System.Drawing.Point(107, 104);
             this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(49, 17);
@@ -62,7 +62,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(135, 71);
+            this.label1.Location = new System.Drawing.Point(114, 69);
             this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(42, 17);
@@ -73,41 +73,41 @@
             // 
             this.processCompleteLabel.AutoSize = true;
             this.processCompleteLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.processCompleteLabel.Location = new System.Drawing.Point(123, 24);
+            this.processCompleteLabel.Location = new System.Drawing.Point(126, 20);
             this.processCompleteLabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.processCompleteLabel.Name = "processCompleteLabel";
             this.processCompleteLabel.Size = new System.Drawing.Size(228, 29);
             this.processCompleteLabel.TabIndex = 21;
             this.processCompleteLabel.Text = "Process Complete";
             // 
-            // textBox1
+            // dateTextBox
             // 
-            this.textBox1.Enabled = false;
-            this.textBox1.Location = new System.Drawing.Point(180, 68);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(151, 22);
-            this.textBox1.TabIndex = 28;
+            this.dateTextBox.Enabled = false;
+            this.dateTextBox.Location = new System.Drawing.Point(159, 66);
+            this.dateTextBox.Name = "dateTextBox";
+            this.dateTextBox.Size = new System.Drawing.Size(195, 22);
+            this.dateTextBox.TabIndex = 28;
             // 
-            // textBox2
+            // movieTextBox
             // 
-            this.textBox2.Enabled = false;
-            this.textBox2.Location = new System.Drawing.Point(180, 103);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(151, 22);
-            this.textBox2.TabIndex = 29;
+            this.movieTextBox.Enabled = false;
+            this.movieTextBox.Location = new System.Drawing.Point(159, 101);
+            this.movieTextBox.Name = "movieTextBox";
+            this.movieTextBox.Size = new System.Drawing.Size(195, 22);
+            this.movieTextBox.TabIndex = 29;
             // 
-            // textBox3
+            // screeningRoomTextBox
             // 
-            this.textBox3.Enabled = false;
-            this.textBox3.Location = new System.Drawing.Point(180, 138);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(151, 22);
-            this.textBox3.TabIndex = 30;
+            this.screeningRoomTextBox.Enabled = false;
+            this.screeningRoomTextBox.Location = new System.Drawing.Point(159, 136);
+            this.screeningRoomTextBox.Name = "screeningRoomTextBox";
+            this.screeningRoomTextBox.Size = new System.Drawing.Size(195, 22);
+            this.screeningRoomTextBox.TabIndex = 30;
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(125, 178);
+            this.label4.Location = new System.Drawing.Point(134, 187);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(213, 17);
@@ -116,7 +116,7 @@
             // 
             // exitButton
             // 
-            this.exitButton.Location = new System.Drawing.Point(131, 199);
+            this.exitButton.Location = new System.Drawing.Point(140, 208);
             this.exitButton.Margin = new System.Windows.Forms.Padding(4);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(203, 56);
@@ -132,15 +132,16 @@
             this.ClientSize = new System.Drawing.Size(476, 279);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.screeningRoomTextBox);
+            this.Controls.Add(this.movieTextBox);
+            this.Controls.Add(this.dateTextBox);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.processCompleteLabel);
             this.Name = "TicketPurchase";
             this.Text = "TicketPurchase";
+            this.Load += new System.EventHandler(this.TicketPurchase_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -152,9 +153,9 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label processCompleteLabel;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox dateTextBox;
+        private System.Windows.Forms.TextBox movieTextBox;
+        private System.Windows.Forms.TextBox screeningRoomTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button exitButton;
     }

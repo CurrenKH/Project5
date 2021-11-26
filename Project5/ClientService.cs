@@ -27,10 +27,12 @@ namespace Project5
             ReadMoviesDB();
             ReadShowtimeDB();
         }
-        public static DateTime Date;
-        public static string Movie;
-        public static string Room;
-        public static string ShowTimeId;
+
+        //  Assign string variables to associate selected indexes and list objects in order to insert ETicket data
+        public static DateTime purchaseTime;
+        public static string movieTitle;
+        public static string roomCode;
+        public static string showtimeID;
 
         //  Declare lists
         private List<Movie> movieList = new List<Movie>();
@@ -95,7 +97,6 @@ namespace Project5
 
         private List<Movie> ReadMoviesDB()
         {
-
             //  Clear ListView
             movieListView.Items.Clear();
 
@@ -145,8 +146,6 @@ namespace Project5
                     movieImageList.Images.Add(Image.FromFile(readMovie.ImagePath.ToString()));
                     movieList.Add(readMovie);
                 }
-                //  Add to list
-                //  Movies.Add(readMovie);
             }
             //  Close DB connection
             dbManager.dbConnection.Close();
@@ -204,14 +203,38 @@ namespace Project5
             return foundShowtimes;
         }
 
-
         private void PurchaseTicketButton_Click(object sender, EventArgs e)
         {
-            //  Declare form
-            TicketPurchase ticketPurchaseForm = new TicketPurchase();
+            //  if a ListBox item is not selected
+            if (showtimesListBox.SelectedIndices.Count <= 0)
+            {
+                MessageBox.Show("Select a showtime (if there are any available) first.");
+            }
+            else
+            {
 
-            //  Show new form
-            ticketPurchaseForm.ShowDialog(this);
+                //  Declare form
+                TicketPurchase ticketPurchaseForm = new TicketPurchase();
+
+                //  Show new form
+                ticketPurchaseForm.ShowDialog();
+
+                //  Declare random variable for ID
+                Random rand = new Random();
+                int idNum = rand.Next(1, 50000);
+
+                //  Declare eticket variable
+                ETicket NewTicket = new ETicket();
+
+                //  Associate variables from the following:
+                NewTicket.ID = int.Parse(idNum.ToString());     //  Random number generator
+                NewTicket.PurchaseDate = DateTime.Now;          //  DateTime from the moment purchased
+                NewTicket.ShowtimeID = int.Parse(showtimeID);   //  ShowtimeID from the SelectedIndex of its ListBox
+                NewTicket.UserID = ClientLogin.userID;          //  UserID matched by username and password from the ClientLogin form
+
+                //  Call method to create new ETicket
+                dbManager.CreateETicketDB(NewTicket);
+            }
         }
 
         private void ExitButton_Click(object sender, EventArgs e)
@@ -239,7 +262,37 @@ namespace Project5
 
         private void ShowtimesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
+            //  if a ListBox item is not selected
+            if (showtimesListBox.SelectedIndices.Count <= 0)
+            {
+                MessageBox.Show("Select a showtime.");
+            }
+            //  Otherwise
+            else
+            {
+                //  Set int variable to selected ListView item in array (#0)
+                int index = movieListView.SelectedIndices[0];
+
+                //  String selected ListView item (movie title) as text
+                string title = movieListView.Items[index].Text;
+
+                //  For each showtime that exists under a single movie, add it to the showtimesListBox
+                foreach (Showtime ShowTime in movieList[MovieData(title)].Showtime)
+                {
+                    //  If the movie ID in the list matches the showtime movie ID
+                    if (movieList[MovieData(title)].ID == ShowTime.MovieID)
+                    {
+                        //  Declare purchase time through lists/selected indexes/indices
+                        purchaseTime = movieList[movieListView.SelectedIndices[0]].Showtime[showtimesListBox.SelectedIndex].Time;
+
+                        //  Declare room code by what is selected in the ListBox for its showtime
+                        roomCode = ShowTime.RoomCode;
+
+                        //  If there is more than one showtime, associate its ID by the selected index
+                        showtimeID = ShowTime.ID.ToString();
+                    }
+                }
+            }
         }
 
         private void ClientService_Load(object sender, EventArgs e)
@@ -266,6 +319,8 @@ namespace Project5
                 //  String selected ListView item (movie title) as text
                 string text = movieListView.Items[intselectedindex].Text;
 
+                movieTitle = movieList[MovieData(text)].Title;
+
                 //  Find image index for movieList to affiliate the correct image with the selected movie
                 int imageIndex = movieList.FindIndex(a => a.Title == text);
                 moviePictureBox.Image = movieImageList.Images[imageIndex];
@@ -273,6 +328,7 @@ namespace Project5
                 //  For each showtime that exists under a single movie, add it to the showtimesListBox
                 foreach (Showtime foundShowtime in movieList[MovieData(text)].Showtime)
                 {
+                    //  Display showtime and ticket price
                     showtimesListBox.Items.Add(foundShowtime.Time + "\t" + foundShowtime.TicketPrice.ToString("C2"));
                 }
             }

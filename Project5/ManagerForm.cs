@@ -1093,7 +1093,8 @@ namespace Project5
                 //  Error message
                 MessageBox.Show("Error deleting screening room." +
                     " If you are attempting to delete a screening room with a movie showtime planned," +
-                    "you must delete the showtime first and which * cancels * the event.");
+                    " you must delete the showtimes associated with this room first and which *cancels* the event(s). " +
+                    "Check showtimes in order to do this.");
 
                 //  Open and close connection upon an error
                 MySqlConnection dbConnection3 = dbManager.CreateDBConnection();
@@ -1482,7 +1483,6 @@ namespace Project5
         private void ClearAddMovieInputs()
         {
             //  Clear TextBoxes
-            addMovieIDTextBox.Text = "";
             addMovieTitleTextBox.Text = "";
             addMovieGenreComboBox.Text = "";
             addMovieYearTextBox.Text = "";
@@ -1523,66 +1523,81 @@ namespace Project5
 
         private int InsertMovieDB(Movie addMovie)
         {
-            //  The following objects will be used to create a movie item in the movie table
-            MySqlConnection dbConnection8 = dbManager.CreateDBConnection();
-            MySqlCommand dbCommand8;
+            try
+            {
+                //  The following objects will be used to create a movie item in the movie table
+                MySqlConnection dbConnection8 = dbManager.CreateDBConnection();
+                MySqlCommand dbCommand8;
 
-            MySqlConnection dbConnection9 = dbManager.CreateDBConnection();
-            MySqlCommand dbCommand9;
+                MySqlConnection dbConnection9 = dbManager.CreateDBConnection();
+                MySqlCommand dbCommand9;
 
-            //  Declare int variables for rows affected upon changes
-            int queryResult1;
-            int queryResult2;
+                //  Declare int variables for rows affected upon changes
+                int queryResult1;
+                int queryResult2;
 
-            //  Open DB connection
-            dbConnection8.Open();
+                //  Open DB connection
+                dbConnection8.Open();
+
+                //  SQL query to execute in the db
+                string sqlQuery1 = "INSERT INTO movie VALUES(@ID, @Title, @Year, @Length, @Rating, @ImagePath);";
+
+                //  SQL containing the query to be executed
+                dbCommand8 = new MySqlCommand(sqlQuery1, dbConnection8);
+
+                //  Associate parameters with movie objects
+                dbCommand8.Parameters.AddWithValue("@ID", addMovie.ID);
+                dbCommand8.Parameters.AddWithValue("@Title", addMovie.Title);
+                dbCommand8.Parameters.AddWithValue("@Year", addMovie.Year);
+                dbCommand8.Parameters.AddWithValue("@Length", addMovie.Length);
+                dbCommand8.Parameters.AddWithValue("@Rating", addMovie.Rating);
+                dbCommand8.Parameters.AddWithValue("@ImagePath", addMovie.ImagePath);
+
+                //  Prepare parameters to query in DB
+                dbCommand8.Prepare();
+
+                //  Result of rows affected
+                queryResult1 = dbCommand8.ExecuteNonQuery();
 
 
-            //  SQL query to execute in the db
-            string sqlQuery1 = "INSERT INTO movie VALUES(@ID, @Title, @Year, @Length, @Rating, @ImagePath);";
+                //  Open DB connection
+                dbConnection9.Open();
 
-            //  SQL containing the query to be executed
-            dbCommand8 = new MySqlCommand(sqlQuery1, dbConnection8);
+                //  SQL query to execute in the db
+                string sqlQuery2 = "INSERT INTO jt_genre_movie VALUES(@GenreCode, @ID);";
 
-            //  Associate parameters with screening room objects
-            dbCommand8.Parameters.AddWithValue("@ID", addMovie.ID);
-            dbCommand8.Parameters.AddWithValue("@Title", addMovie.Title);
-            dbCommand8.Parameters.AddWithValue("@Year", addMovie.Year);
-            dbCommand8.Parameters.AddWithValue("@Length", addMovie.Length);
-            dbCommand8.Parameters.AddWithValue("@Rating", addMovie.Rating);
-            dbCommand8.Parameters.AddWithValue("@ImagePath", addMovie.ImagePath);
+                //  SQL containing the query to be executed
+                dbCommand9 = new MySqlCommand(sqlQuery2, dbConnection9);
 
-            //  Prepare parameters to query in DB
-            dbCommand8.Prepare();
+                //  Associate parameters with movie and genre list objects
+                dbCommand9.Parameters.AddWithValue("@GenreCode", genreList[addMovieGenreComboBox.SelectedIndex].Code);
+                dbCommand9.Parameters.AddWithValue("@ID", addMovie.ID);
 
-            //  Result of rows affected
-            queryResult1 = dbCommand8.ExecuteNonQuery();
+                //  Prepare parameters to query in DB
+                dbCommand9.Prepare();
 
+                //  Result of rows affected
+                queryResult2 = dbCommand9.ExecuteNonQuery();
 
-            //  Open DB connection
-            dbConnection9.Open();
+                //  Close DB connections
+                dbConnection8.Close();
+                dbConnection9.Close();
 
-            //  SQL query to execute in the db
-            string sqlQuery2 = "INSERT INTO jt_genre_movie VALUES(@GenreCode, @ID);";
+                return queryResult1;
+            }
+            catch
+            {
+                //  Error Message
+                MessageBox.Show("Error upon movie insertion detected.");
 
-            //  SQL containing the query to be executed
-            dbCommand9 = new MySqlCommand(sqlQuery2, dbConnection9);
+                //  Open and close connection upon an error
+                MySqlConnection dbConnection10 = dbManager.CreateDBConnection();
 
-            //  Associate parameters with screening room objects
-            dbCommand9.Parameters.AddWithValue("@GenreCode", genreList[addMovieGenreComboBox.SelectedIndex].Code);
-            dbCommand9.Parameters.AddWithValue("@ID", addMovie.ID);
+                //  Close DB connection
+                dbConnection10.Close();
 
-            //  Prepare parameters to query in DB
-            dbCommand9.Prepare();
-
-            //  Result of rows affected
-            queryResult2 = dbCommand9.ExecuteNonQuery();
-
-            //  Close DB connections
-            dbConnection8.Close();
-            dbConnection9.Close();
-
-            return queryResult1;
+                return 0;
+            }
         }
 
         private void addMovieButton_Click(object sender, EventArgs e)
@@ -1636,7 +1651,7 @@ namespace Project5
 
                 //  Declare random variable for ID
                 Random rand = new Random();
-                int idNum = rand.Next(112, 50000);
+                int idNum = rand.Next(200, 50000);
 
                 //  Declare movie variable
                 Movie addMovie = new Movie();
@@ -1691,6 +1706,266 @@ namespace Project5
 
                 //  Set image path TextBox by the selected file
                 addMovieImagePathTextBox.Text = selectedImagePath;
+            }
+        }
+
+        private int DeleteMovieDB(Movie deleteMovie)
+        {
+            try
+            {
+                //  Open DB connection
+                dbManager.dbConnection.Open();
+
+                //  Declare int variables for rows affected upon changes
+                int queryResult;
+                int queryResult2;
+                int queryResult3;
+
+                //  ----If there are movie tickets purchased under a movie you are trying to delete----
+                //  ----you must cancel the showtimes for that movie by deleting them first----
+
+
+                //  ----Delete genre(s) associated with movie first to prevent foreign key error----
+
+                //  SQL query to execute in the db
+                string sqlQuery = "DELETE FROM jt_genre_movie WHERE movie_id = @ID;";
+
+                //This is the actual SQL containing the query to be executed
+                MySqlCommand dbCommand8 = new MySqlCommand(sqlQuery, dbManager.dbConnection);
+
+                //  Associate parameter with movie object
+                dbCommand8.Parameters.AddWithValue("@ID", deleteMovie.ID);
+
+                //  Prepare parameters to query in DB
+                dbCommand8.Prepare();
+
+                queryResult = dbCommand8.ExecuteNonQuery();
+
+                //  ----Delete showtime(s) associated with movie second to prevent foreign key error----
+
+                string sqlQuery2 = "DELETE FROM showtime WHERE movie_id = @ID;";
+
+                //  SQL containing the query to be executed
+                MySqlCommand dbCommand9 = new MySqlCommand(sqlQuery2, dbManager.dbConnection);
+
+                //  Associate parameter with movie object
+                dbCommand9.Parameters.AddWithValue("@ID", deleteMovie.ID);
+
+                //  Prepare parameters to query in DB
+                dbCommand9.Prepare();
+
+                queryResult2 = dbCommand9.ExecuteNonQuery();
+
+                //  ----Delete movie according to ID----
+
+                string sqlQuery3 = "DELETE FROM movie WHERE id = @ID;";
+
+                //  SQL containing the query to be executed
+                MySqlCommand dbCommand10 = new MySqlCommand(sqlQuery3, dbManager.dbConnection);
+
+                //  Associate parameter with movie object
+                dbCommand10.Parameters.AddWithValue("@ID", deleteMovie.ID);
+
+                //  Prepare parameters to query in DB
+                dbCommand10.Prepare();
+
+                queryResult3 = dbCommand10.ExecuteNonQuery();
+
+                //After executing the query(ies) in the db, the connection must be closed
+                dbManager.dbConnection.Close();
+
+                return queryResult;
+            }
+            catch
+            {
+                //  Error message
+                MessageBox.Show("Error deleting movie. If there are movie tickets purchased under a movie you are " +
+                    "trying to delete you must cancel the showtimes for that movie by deleting them first. Check showtimes in order to do this.");
+
+                //  Open and close connection upon an error
+                MySqlConnection dbConnection7 = dbManager.CreateDBConnection();
+
+                dbConnection7.Close();
+
+                return 0;
+            }
+        }
+
+        private void deleteMovieButton_Click(object sender, EventArgs e)
+        {
+            //  If a ListView item is selected
+            if (moviesListView.SelectedItems.Count > 0)
+            {
+                //  Declare movie variable
+                Movie deleteMovie = new Movie();
+
+                //  Selected movie data values pointed to the read only movie ID field
+                deleteMovie.ID = int.Parse(idTextBox.Text);
+                deleteMovie.Title = titleTextBox.Text;
+                deleteMovie.Year = int.Parse(yearTextBox.Text);
+                deleteMovie.Length = int.Parse(lengthTextBox.Text);
+                deleteMovie.Rating = double.Parse(ratingTextBox.Text);
+                deleteMovie.ImagePath = imagePathTextBox.Text;
+
+                //  Empty Movies list
+                movieList = new List<Movie>();
+
+                //  Call method to delete movie from the list
+                DeleteMovieDB(deleteMovie);
+
+                //  Clear imageList for adding movie item
+                movieImageList.Images.Clear();
+
+                //  Read movies from the database
+                ReadMoviesDB();
+
+                //  Read movie list and display updated data
+                UpdateListView();
+
+                //  Remove movie data method
+                ClearMovieInputs();
+
+                //  Update ComboBoxes with movie list changes
+                ReadShowtimeMovieComboBox();
+                ReadAddShowtimeMovieComboBox();
+
+                //  Clear list
+                showtimeList.Clear();
+
+                //  Clear ListBox
+                showtimesListBox.Items.Clear();
+
+                //  Read showtimes from the database
+                ReadShowtimesDB();
+            }
+            else
+            {
+                //  Show prompt message
+                MessageBox.Show("Select a movie first.");
+            }
+        }
+
+        private void modifyMovieButton_Click(object sender, EventArgs e)
+        {
+            //  If a ListView item is selected
+            if (moviesListView.SelectedItems.Count > 0)
+            {
+                //  Enable TextBoxes and Button to allow access for changes made by the user
+                titleTextBox.Enabled = true;
+                yearTextBox.Enabled = true;
+                movieImagePathButton.Enabled = true;
+                lengthTextBox.Enabled = true;
+                ratingTextBox.Enabled = true;
+                saveMovieButton.Enabled = true;
+            }
+            else
+            {
+                //  Show prompt message
+                MessageBox.Show("Select a movie first.");
+            }
+        }
+
+        private void movieImagePathButton_Click(object sender, EventArgs e)
+        {
+            //  Use FileDialog to search for an image to select
+            OpenFileDialog modifyMovieImage = new OpenFileDialog();
+
+            //  Set filter to only show images to select from
+            modifyMovieImage.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.gif;*.tif;...";
+
+            if (modifyMovieImage.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                //  String variable for the file path and name taken from OpenFileDialog
+                string selectedImagePath = modifyMovieImage.FileName;
+
+                //  Set image path TextBox by the selected file
+                imagePathTextBox.Text = selectedImagePath;
+            }
+        }
+
+        private void saveMovieButton_Click(object sender, EventArgs e)
+        {
+            //  Declare int and decimal variable for integer/decimal checking
+            int num = -1;
+            decimal d;
+
+            //  Create array of TextBoxes
+            var textBoxCollection = new[] { titleTextBox, yearTextBox, lengthTextBox, imagePathTextBox, ratingTextBox };
+
+            //  Declare boolean value to use for array
+            bool atleastOneTextboxEmpty;
+
+            //  Check if any TextBoxes are empty within the array
+            if (atleastOneTextboxEmpty = textBoxCollection.Any(t => String.IsNullOrWhiteSpace(t.Text)))
+            {
+                //  Show error message
+                MessageBox.Show("Not all entries for MODIFYING MOVIE are filled.");
+            }
+            //  Integer checking for year
+            else if (!int.TryParse(yearTextBox.Text, out num))
+            {
+                //  Show error message
+                MessageBox.Show("Invalid year input. Use an integer instead.");
+            }
+            //  Integer checking for length
+            else if (!int.TryParse(lengthTextBox.Text, out num))
+            {
+                //  Show error message
+                MessageBox.Show("Invalid length input. Use an integer instead.");
+            }
+            //  Number checking for rating
+            else if (!decimal.TryParse(ratingTextBox.Text, out d))
+            {
+                //  Show error message
+                MessageBox.Show("Invalid rating input. Use a number instead.");
+            }
+            else
+            {
+                //  Replace inputted backslashes inserted by OpenFileDialog to forward slashes
+                //  Due to MySQL deleting backslashes in its syntax when read
+                imagePathTextBox.Text = imagePathTextBox.Text.Replace("\\", "/");
+
+                //  Declare movie variable
+                Movie modifyMovie = new Movie();
+
+                //  Modified movie data values pointed to the modify movie fields
+                //  ID is not able to be changed due to it being the primary key
+                modifyMovie.ID = int.Parse(idTextBox.Text);
+                modifyMovie.Title = titleTextBox.Text;
+                modifyMovie.Year = int.Parse(yearTextBox.Text);
+                modifyMovie.Length = int.Parse(lengthTextBox.Text);
+                modifyMovie.Rating = double.Parse(ratingTextBox.Text);
+                modifyMovie.ImagePath = imagePathTextBox.Text;
+
+                //  Empty Movies list
+                movieList = new List<Movie>();
+
+                //  Call method to insert add movie fields from form to a movie object in the list
+                dbManager.ModifyMovieDB(modifyMovie);
+
+                //  Clear imageList for adding movie item
+                movieImageList.Images.Clear();
+
+                //  Read movies from the database
+                ReadMoviesDB();
+
+                //  Read movie list and display updated data
+                UpdateListView();
+
+                //  Remove movie data method
+                ClearMovieInputs();
+
+                //  Update ComboBoxes with movie list changes
+                ReadShowtimeMovieComboBox();
+                ReadAddShowtimeMovieComboBox();
+
+                //  Disable TextBoxes and Buttons to deny access for anymore changes made by the user
+                titleTextBox.Enabled = false;
+                yearTextBox.Enabled = false;
+                movieImagePathButton.Enabled = false;
+                lengthTextBox.Enabled = false;
+                ratingTextBox.Enabled = false;
+                saveMovieButton.Enabled = false;
             }
         }
     }

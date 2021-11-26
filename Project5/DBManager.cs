@@ -335,5 +335,86 @@ namespace Project5
                 return 0;
             }
         }
+
+        public int ModifyMovieDB(Movie addMovie)
+        {
+            try
+            {
+                //  Open DB connection
+                dbConnection.Open();
+
+                //  Declare int variables for rows affected upon changes
+                int queryResult;
+
+                //  SQL query to execute in the db           
+                string sqlQuery = "UPDATE movie SET title = @Title, year = @Year, length = @Length, audience_rating = @Rating, image_file_path = @ImagePath WHERE id = @ID;";
+
+                //  SQL containing the query to be executed
+                MySqlCommand dbCommand11 = new MySqlCommand(sqlQuery, dbConnection);
+
+                //  Associate parameters with movie objects
+                dbCommand11.Parameters.AddWithValue("@ID", addMovie.ID);
+                dbCommand11.Parameters.AddWithValue("@Title", addMovie.Title);
+                dbCommand11.Parameters.AddWithValue("@Year", addMovie.Year);
+                dbCommand11.Parameters.AddWithValue("@Length", addMovie.Length);
+                dbCommand11.Parameters.AddWithValue("@Rating", addMovie.Rating);
+                dbCommand11.Parameters.AddWithValue("@ImagePath", addMovie.ImagePath);
+
+                //  Prepare parameters to query in DB
+                dbCommand11.Prepare();
+
+                //  Result of rows affected
+                queryResult = dbCommand11.ExecuteNonQuery();
+
+                //  Close DB connection
+                dbConnection.Close();
+
+                return queryResult;
+            }
+            catch
+            {
+                //  Error message
+                Console.WriteLine("Error modifying movie.");
+
+                //  Open and close connection upon an error
+                MySqlConnection dbConnection8 = CreateDBConnection();
+
+                dbConnection8.Close();
+
+                return 0;
+            }
+        }
+
+        public int CreateETicketDB(ETicket newTicket)
+        {
+            //  Open DB connection
+            dbConnection.Open();
+
+            //  Declare int variables for rows affected upon changes
+            int queryResult;
+
+            //  SQL query to execute in the db
+            string sqlQuery = "INSERT INTO e_ticket VALUES(@ID, @PurchaseDate, @Showtime, @UserID);";
+
+            //  SQL containing the query to be executed
+            MySqlCommand dbCommand12 = new MySqlCommand(sqlQuery, dbConnection);
+
+            //  Associate parameters with ticket objects
+            dbCommand12.Parameters.AddWithValue("@ID", newTicket.ID);
+            dbCommand12.Parameters.AddWithValue("@PurchaseDate", Convert.ToDateTime(newTicket.PurchaseDate).ToString("yyyy-MM-dd HH:mm:ss"));
+            dbCommand12.Parameters.AddWithValue("@Showtime", newTicket.ShowtimeID);
+            dbCommand12.Parameters.AddWithValue("@UserID", newTicket.UserID);
+
+            //  Prepare parameters to query in DB
+            dbCommand12.Prepare();
+
+            //  Result of rows affected
+            queryResult = dbCommand12.ExecuteNonQuery();
+
+            //  Close DB connection
+            dbConnection.Close();
+
+            return queryResult;
+        }
     }
 }

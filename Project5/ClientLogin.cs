@@ -34,6 +34,8 @@ namespace Project5
         //  Declare class instance for SQL connection methods
         DBManager dbManager = new DBManager();
 
+        //  ID to pass in another form for purchasing tickets under the account
+        public static int userID;
         private void ClientLoginButton_Click(object sender, EventArgs e)
         {
             //  Reread clients in the database for new entries
@@ -43,6 +45,17 @@ namespace Project5
             //  Source: https://stackoverflow.com/a/3435102/12985943
             if (dbManager.userList.Exists(x => x.Username == clientUsernameTextBox.Text && x.TypeID == 1 && x.Password == clientPasswordTextBox.Text))
             {
+                //  For EACH client that exists in the user list, check first if the username and password fields match any
+                //  user existing in that list, then assign the ID (for who is logged in sucessfully) to a variable passed
+                //  to the purchasing form to log the client ID in the e_ticket table entry
+                foreach (UserAccount client in dbManager.userList)
+                {
+                    //  Variable checking
+                    if (client.Username == clientUsernameTextBox.Text && client.TypeID == 1 && client.Password == clientPasswordTextBox.Text)
+                    {
+                        userID = client.ID;
+                    }
+                }
                 //  Declare new form
                 ClientService clientServicePortal= new ClientService();
 

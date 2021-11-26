@@ -22,5 +22,13 @@ namespace Project5
             //  Closes the form
             this.Close();
         }
+
+        private void TicketPurchase_Load(object sender, EventArgs e)
+        {
+            //  Associate data values from previous form to this one with ticket information
+            dateTextBox.Text = ClientService.purchaseTime.ToString();
+            movieTextBox.Text = ClientService.movieTitle;
+            screeningRoomTextBox.Text = ClientService.roomCode;
+        }
     }
 }

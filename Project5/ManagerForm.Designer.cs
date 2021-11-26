@@ -35,8 +35,6 @@
             this.addMovieGenreComboBox = new System.Windows.Forms.ComboBox();
             this.idTextBox = new System.Windows.Forms.TextBox();
             this.movieIDLabel = new System.Windows.Forms.Label();
-            this.addMovieIDTextBox = new System.Windows.Forms.TextBox();
-            this.addMovieIDLabel = new System.Windows.Forms.Label();
             this.addMovieImagePathButton = new System.Windows.Forms.Button();
             this.addMovieLabel = new System.Windows.Forms.Label();
             this.addMovieLengthTextBox = new System.Windows.Forms.TextBox();
@@ -158,7 +156,7 @@
             // 
             this.addMovieGenreComboBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.addMovieGenreComboBox.FormattingEnabled = true;
-            this.addMovieGenreComboBox.Location = new System.Drawing.Point(401, 498);
+            this.addMovieGenreComboBox.Location = new System.Drawing.Point(414, 465);
             this.addMovieGenreComboBox.Name = "addMovieGenreComboBox";
             this.addMovieGenreComboBox.Size = new System.Drawing.Size(163, 24);
             this.addMovieGenreComboBox.TabIndex = 246;
@@ -181,27 +179,10 @@
             this.movieIDLabel.TabIndex = 241;
             this.movieIDLabel.Text = "ID:";
             // 
-            // addMovieIDTextBox
-            // 
-            this.addMovieIDTextBox.Location = new System.Drawing.Point(401, 390);
-            this.addMovieIDTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.addMovieIDTextBox.Name = "addMovieIDTextBox";
-            this.addMovieIDTextBox.Size = new System.Drawing.Size(163, 22);
-            this.addMovieIDTextBox.TabIndex = 240;
-            // 
-            // addMovieIDLabel
-            // 
-            this.addMovieIDLabel.AutoSize = true;
-            this.addMovieIDLabel.Location = new System.Drawing.Point(372, 393);
-            this.addMovieIDLabel.Name = "addMovieIDLabel";
-            this.addMovieIDLabel.Size = new System.Drawing.Size(25, 17);
-            this.addMovieIDLabel.TabIndex = 239;
-            this.addMovieIDLabel.Text = "ID:";
-            // 
             // addMovieImagePathButton
             // 
             this.addMovieImagePathButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addMovieImagePathButton.Location = new System.Drawing.Point(570, 564);
+            this.addMovieImagePathButton.Location = new System.Drawing.Point(583, 531);
             this.addMovieImagePathButton.Name = "addMovieImagePathButton";
             this.addMovieImagePathButton.Size = new System.Drawing.Size(48, 35);
             this.addMovieImagePathButton.TabIndex = 238;
@@ -214,7 +195,7 @@
             // 
             this.addMovieLabel.AutoSize = true;
             this.addMovieLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.addMovieLabel.Location = new System.Drawing.Point(366, 364);
+            this.addMovieLabel.Location = new System.Drawing.Point(373, 368);
             this.addMovieLabel.Name = "addMovieLabel";
             this.addMovieLabel.Size = new System.Drawing.Size(47, 20);
             this.addMovieLabel.TabIndex = 237;
@@ -222,7 +203,7 @@
             // 
             // addMovieLengthTextBox
             // 
-            this.addMovieLengthTextBox.Location = new System.Drawing.Point(401, 536);
+            this.addMovieLengthTextBox.Location = new System.Drawing.Point(414, 503);
             this.addMovieLengthTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addMovieLengthTextBox.Name = "addMovieLengthTextBox";
             this.addMovieLengthTextBox.Size = new System.Drawing.Size(163, 22);
@@ -231,7 +212,7 @@
             // addMovieImagePathTextBox
             // 
             this.addMovieImagePathTextBox.Enabled = false;
-            this.addMovieImagePathTextBox.Location = new System.Drawing.Point(401, 575);
+            this.addMovieImagePathTextBox.Location = new System.Drawing.Point(414, 542);
             this.addMovieImagePathTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addMovieImagePathTextBox.Name = "addMovieImagePathTextBox";
             this.addMovieImagePathTextBox.Size = new System.Drawing.Size(163, 22);
@@ -239,7 +220,7 @@
             // 
             // addMovieRatingTextBox
             // 
-            this.addMovieRatingTextBox.Location = new System.Drawing.Point(401, 612);
+            this.addMovieRatingTextBox.Location = new System.Drawing.Point(414, 579);
             this.addMovieRatingTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addMovieRatingTextBox.Name = "addMovieRatingTextBox";
             this.addMovieRatingTextBox.Size = new System.Drawing.Size(163, 22);
@@ -248,7 +229,7 @@
             // addMovieRatingLabel
             // 
             this.addMovieRatingLabel.AutoSize = true;
-            this.addMovieRatingLabel.Location = new System.Drawing.Point(346, 615);
+            this.addMovieRatingLabel.Location = new System.Drawing.Point(359, 582);
             this.addMovieRatingLabel.Name = "addMovieRatingLabel";
             this.addMovieRatingLabel.Size = new System.Drawing.Size(53, 17);
             this.addMovieRatingLabel.TabIndex = 233;
@@ -257,7 +238,7 @@
             // addMovieImagePathLabel
             // 
             this.addMovieImagePathLabel.AutoSize = true;
-            this.addMovieImagePathLabel.Location = new System.Drawing.Point(316, 578);
+            this.addMovieImagePathLabel.Location = new System.Drawing.Point(329, 545);
             this.addMovieImagePathLabel.Name = "addMovieImagePathLabel";
             this.addMovieImagePathLabel.Size = new System.Drawing.Size(83, 17);
             this.addMovieImagePathLabel.TabIndex = 232;
@@ -266,7 +247,7 @@
             // addMovieLengthLabel
             // 
             this.addMovieLengthLabel.AutoSize = true;
-            this.addMovieLengthLabel.Location = new System.Drawing.Point(308, 539);
+            this.addMovieLengthLabel.Location = new System.Drawing.Point(321, 506);
             this.addMovieLengthLabel.Name = "addMovieLengthLabel";
             this.addMovieLengthLabel.Size = new System.Drawing.Size(92, 17);
             this.addMovieLengthLabel.TabIndex = 231;
@@ -275,7 +256,7 @@
             // addMovieYearLabel
             // 
             this.addMovieYearLabel.AutoSize = true;
-            this.addMovieYearLabel.Location = new System.Drawing.Point(357, 465);
+            this.addMovieYearLabel.Location = new System.Drawing.Point(370, 432);
             this.addMovieYearLabel.Name = "addMovieYearLabel";
             this.addMovieYearLabel.Size = new System.Drawing.Size(42, 17);
             this.addMovieYearLabel.TabIndex = 230;
@@ -284,7 +265,7 @@
             // addMovieGenreLabel
             // 
             this.addMovieGenreLabel.AutoSize = true;
-            this.addMovieGenreLabel.Location = new System.Drawing.Point(348, 501);
+            this.addMovieGenreLabel.Location = new System.Drawing.Point(361, 468);
             this.addMovieGenreLabel.Name = "addMovieGenreLabel";
             this.addMovieGenreLabel.Size = new System.Drawing.Size(52, 17);
             this.addMovieGenreLabel.TabIndex = 229;
@@ -292,7 +273,7 @@
             // 
             // addMovieYearTextBox
             // 
-            this.addMovieYearTextBox.Location = new System.Drawing.Point(401, 461);
+            this.addMovieYearTextBox.Location = new System.Drawing.Point(414, 428);
             this.addMovieYearTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addMovieYearTextBox.Name = "addMovieYearTextBox";
             this.addMovieYearTextBox.Size = new System.Drawing.Size(163, 22);
@@ -300,7 +281,7 @@
             // 
             // addMovieTitleTextBox
             // 
-            this.addMovieTitleTextBox.Location = new System.Drawing.Point(401, 422);
+            this.addMovieTitleTextBox.Location = new System.Drawing.Point(414, 389);
             this.addMovieTitleTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addMovieTitleTextBox.Name = "addMovieTitleTextBox";
             this.addMovieTitleTextBox.Size = new System.Drawing.Size(163, 22);
@@ -309,7 +290,7 @@
             // addMovieTitleLabel
             // 
             this.addMovieTitleLabel.AutoSize = true;
-            this.addMovieTitleLabel.Location = new System.Drawing.Point(361, 425);
+            this.addMovieTitleLabel.Location = new System.Drawing.Point(374, 392);
             this.addMovieTitleLabel.Name = "addMovieTitleLabel";
             this.addMovieTitleLabel.Size = new System.Drawing.Size(39, 17);
             this.addMovieTitleLabel.TabIndex = 226;
@@ -326,23 +307,25 @@
             this.movieImagePathButton.Text = "...";
             this.movieImagePathButton.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.movieImagePathButton.UseVisualStyleBackColor = true;
+            this.movieImagePathButton.Click += new System.EventHandler(this.movieImagePathButton_Click);
             // 
             // saveMovieButton
             // 
             this.saveMovieButton.Enabled = false;
-            this.saveMovieButton.Location = new System.Drawing.Point(140, 686);
+            this.saveMovieButton.Location = new System.Drawing.Point(173, 676);
             this.saveMovieButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.saveMovieButton.Name = "saveMovieButton";
-            this.saveMovieButton.Size = new System.Drawing.Size(116, 44);
+            this.saveMovieButton.Size = new System.Drawing.Size(118, 44);
             this.saveMovieButton.TabIndex = 220;
             this.saveMovieButton.Text = "Save Modifications";
             this.saveMovieButton.UseVisualStyleBackColor = true;
+            this.saveMovieButton.Click += new System.EventHandler(this.saveMovieButton_Click);
             // 
             // movieInfoLabel
             // 
             this.movieInfoLabel.AutoSize = true;
             this.movieInfoLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.movieInfoLabel.Location = new System.Drawing.Point(62, 364);
+            this.movieInfoLabel.Location = new System.Drawing.Point(54, 368);
             this.movieInfoLabel.Name = "movieInfoLabel";
             this.movieInfoLabel.Size = new System.Drawing.Size(95, 20);
             this.movieInfoLabel.TabIndex = 218;
@@ -471,27 +454,29 @@
             // 
             // deleteMovieButton
             // 
-            this.deleteMovieButton.Location = new System.Drawing.Point(484, 649);
+            this.deleteMovieButton.Location = new System.Drawing.Point(497, 616);
             this.deleteMovieButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.deleteMovieButton.Name = "deleteMovieButton";
             this.deleteMovieButton.Size = new System.Drawing.Size(118, 44);
             this.deleteMovieButton.TabIndex = 175;
             this.deleteMovieButton.Text = "Delete movie";
             this.deleteMovieButton.UseVisualStyleBackColor = true;
+            this.deleteMovieButton.Click += new System.EventHandler(this.deleteMovieButton_Click);
             // 
             // modifyMovieButton
             // 
-            this.modifyMovieButton.Location = new System.Drawing.Point(16, 686);
+            this.modifyMovieButton.Location = new System.Drawing.Point(49, 676);
             this.modifyMovieButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.modifyMovieButton.Name = "modifyMovieButton";
             this.modifyMovieButton.Size = new System.Drawing.Size(118, 44);
             this.modifyMovieButton.TabIndex = 173;
             this.modifyMovieButton.Text = "Modify movie";
             this.modifyMovieButton.UseVisualStyleBackColor = true;
+            this.modifyMovieButton.Click += new System.EventHandler(this.modifyMovieButton_Click);
             // 
             // addMovieButton
             // 
-            this.addMovieButton.Location = new System.Drawing.Point(356, 649);
+            this.addMovieButton.Location = new System.Drawing.Point(369, 616);
             this.addMovieButton.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.addMovieButton.Name = "addMovieButton";
             this.addMovieButton.Size = new System.Drawing.Size(118, 44);
@@ -1075,8 +1060,6 @@
             this.Controls.Add(this.addMovieGenreComboBox);
             this.Controls.Add(this.idTextBox);
             this.Controls.Add(this.movieIDLabel);
-            this.Controls.Add(this.addMovieIDTextBox);
-            this.Controls.Add(this.addMovieIDLabel);
             this.Controls.Add(this.addMovieImagePathButton);
             this.Controls.Add(this.addMovieLabel);
             this.Controls.Add(this.addMovieLengthTextBox);
@@ -1128,8 +1111,6 @@
         private System.Windows.Forms.ComboBox addMovieGenreComboBox;
         private System.Windows.Forms.TextBox idTextBox;
         private System.Windows.Forms.Label movieIDLabel;
-        private System.Windows.Forms.TextBox addMovieIDTextBox;
-        private System.Windows.Forms.Label addMovieIDLabel;
         private System.Windows.Forms.Button addMovieImagePathButton;
         private System.Windows.Forms.Label addMovieLabel;
         private System.Windows.Forms.TextBox addMovieLengthTextBox;
